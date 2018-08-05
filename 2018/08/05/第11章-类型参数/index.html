@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Scala开发快速入门," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="语法特性 格式 描述     类型变量界定 &amp;lt;: is a   视图界定 &amp;lt;% can be seen as   上下文界定 T:M has a    11.1 类与类型11.2 泛型123456789/**  * Scala泛型：多个参数  */object Example11_1 extends App &amp;#123;    class Person[T](var name:">
+<meta name="keywords" content="Scala开发快速入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第11章 类型参数">
+<meta property="og:url" content="https://olddream330.github.io/2018/08/05/第11章-类型参数/index.html">
+<meta property="og:site_name" content="Phil Han&#39;s Notebook">
+<meta property="og:description" content="语法特性 格式 描述     类型变量界定 &amp;lt;: is a   视图界定 &amp;lt;% can be seen as   上下文界定 T:M has a    11.1 类与类型11.2 泛型123456789/**  * Scala泛型：多个参数  */object Example11_1 extends App &amp;#123;    class Person[T](var name:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-05T14:03:37.321Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第11章 类型参数">
+<meta name="twitter:description" content="语法特性 格式 描述     类型变量界定 &amp;lt;: is a   视图界定 &amp;lt;% can be seen as   上下文界定 T:M has a    11.1 类与类型11.2 泛型123456789/**  * Scala泛型：多个参数  */object Example11_1 extends App &amp;#123;    class Person[T](var name:">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://olddream330.github.io/2018/08/05/第11章-类型参数/"/>
+
+
+
+
+
+  <title>第11章 类型参数 | Phil Han's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Phil Han's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/08/05/第11章-类型参数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Phil Han">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Phil Han's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第11章 类型参数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T22:02:35+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <table>
+<thead>
+<tr>
+<th style="text-align:left">语法特性</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">类型变量界定</td>
+<td style="text-align:left">&lt;:</td>
+<td style="text-align:left">is a</td>
+</tr>
+<tr>
+<td style="text-align:left">视图界定</td>
+<td style="text-align:left">&lt;%</td>
+<td style="text-align:left">can be seen as</td>
+</tr>
+<tr>
+<td style="text-align:left">上下文界定</td>
+<td style="text-align:left">T:M</td>
+<td style="text-align:left">has a</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-1-类与类型"><a href="#11-1-类与类型" class="headerlink" title="11.1 类与类型"></a>11.1 类与类型</h2><h2 id="11-2-泛型"><a href="#11-2-泛型" class="headerlink" title="11.2 泛型"></a>11.2 泛型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * Scala泛型：多个参数</span><br><span class="line">  */</span><br><span class="line">object Example11_1 extends App &#123;</span><br><span class="line">    class Person[T](var name: T)</span><br><span class="line">    class Student[T,S](name:T, var age:S) extends Person(name)</span><br><span class="line"></span><br><span class="line">    println(new Student[String,Int](&quot;John&quot;, 18).name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * Scala存在类型</span><br><span class="line">  */</span><br><span class="line">object Example11_2 extends App &#123;</span><br><span class="line">    val arrStr:Array[String]=Array(&quot;Hadoop&quot;,&quot;Hive&quot;,&quot;Spark&quot;)</span><br><span class="line">    val arrInt:Array[Int]=Array(1,2,3)</span><br><span class="line">    printAll(arrStr)</span><br><span class="line">    printAll(arrInt)</span><br><span class="line"></span><br><span class="line">    def printAll(x:Array[T] forSome &#123;type T&#125;) = &#123;</span><br><span class="line">        for (i &lt;- x) &#123;</span><br><span class="line">            print(i + &quot; &quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        println()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * Scala存在类型简化</span><br><span class="line">  * def printAll(x:Array[T] forSome &#123;type T&#125;) 可简化为 def printAll(x:Array[_])</span><br><span class="line">  * _ 类型通配符</span><br><span class="line">  */</span><br><span class="line">object Example11_3 extends App &#123;</span><br><span class="line">    val arrStr:Array[String]=Array(&quot;Hadoop&quot;,&quot;Hive&quot;,&quot;Spark&quot;)</span><br><span class="line">    val arrInt:Array[Int]=Array(1,2,3)</span><br><span class="line">    printAll(arrStr)</span><br><span class="line">    printAll(arrInt)</span><br><span class="line"></span><br><span class="line">    def printAll(x:Array[_]) = &#123;</span><br><span class="line">        for (i &lt;- x) &#123;</span><br><span class="line">            print(i + &quot; &quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        println()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-3-类型变量界定"><a href="#11-3-类型变量界定" class="headerlink" title="11.3 类型变量界定"></a>11.3 类型变量界定</h2><ul>
+<li>上界 [R &lt;:T]</li>
+<li>下界 [R &gt;:T]</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 类型变量界定</span><br><span class="line">  */</span><br><span class="line">object Example11_4 extends App &#123;</span><br><span class="line">    case class Person(var name:String,var age:Int) extends Comparable[Person]&#123;</span><br><span class="line">        def compareTo(o:Person):Int=&#123;</span><br><span class="line">            if (this.age &gt; o.age) 1</span><br><span class="line">            else if (this.age == o.age) 0</span><br><span class="line">            else -1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class TypeVariableBound &#123;</span><br><span class="line">        def compare[T &lt;: Comparable[T]](first:T,second:T)=&#123;</span><br><span class="line">            if (first.compareTo(second) &gt; 0)</span><br><span class="line">                first</span><br><span class="line">            else</span><br><span class="line">                second</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val tvb = new TypeVariableBound</span><br><span class="line">    println(tvb.compare(&quot;A&quot;, &quot;B&quot;))</span><br><span class="line">    println(tvb.compare(Person(&quot;Stephen&quot;,19), Person(&quot;Jack&quot;,20)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-4-视图界定"><a href="#11-4-视图界定" class="headerlink" title="11.4 视图界定"></a>11.4 视图界定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 不指定视图界定</span><br><span class="line">  */</span><br><span class="line">object Example11_5 extends App &#123;</span><br><span class="line">    case class Student[T,S &lt;: Comparable[S]](var name:T, var height:S)</span><br><span class="line">    val s = Student(&quot;Stephen&quot;,&quot;168&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 指定视图界定</span><br><span class="line">  */</span><br><span class="line">object Example11_6 extends App &#123;</span><br><span class="line">    case class Student[T,S &lt;% Comparable[S]](var name:T, var height:S)</span><br><span class="line">    val s = Student(&quot;Stephen&quot;,168)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-5-上下文界定"><a href="#11-5-上下文界定" class="headerlink" title="11.5 上下文界定"></a>11.5 上下文界定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 上下文界定</span><br><span class="line">  */</span><br><span class="line">object Example11_7 extends App &#123;</span><br><span class="line">    class PersonOrdering extends Ordering[Person] &#123;</span><br><span class="line">        override def compare(x: Person, y:Person):Int=&#123;</span><br><span class="line">            if(x.name &gt; y.name)</span><br><span class="line">                1</span><br><span class="line">            else</span><br><span class="line">                -1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    case class Person(val name:String) &#123;</span><br><span class="line">        println(&quot;Constructing &quot; + name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Pair[T:Ordering](val first:T,val second:T) &#123;</span><br><span class="line">        def smaller(implicit ord:Ordering[T])=&#123;</span><br><span class="line">            if (ord.compare(first, second) &gt; 0)</span><br><span class="line">                first</span><br><span class="line">            else</span><br><span class="line">                second</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    implicit val p1 = new PersonOrdering</span><br><span class="line">    val p = new Pair(Person(&quot;123&quot;),Person(&quot;456&quot;))</span><br><span class="line">    println(p.smaller)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 上下文界定(import Ordered.orderingToOrdered)</span><br><span class="line">  */</span><br><span class="line">object Example11_8 extends App &#123;</span><br><span class="line">    class PersonOrdering extends Ordering[Person] &#123;</span><br><span class="line">        override def compare(x: Person, y:Person):Int=&#123;</span><br><span class="line">            if(x.name &gt; y.name)</span><br><span class="line">                1</span><br><span class="line">            else</span><br><span class="line">                -1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    case class Person(val name:String) &#123;</span><br><span class="line">        println(&quot;Constructing &quot; + name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Pair[T:Ordering](val first:T,val second:T) &#123;</span><br><span class="line">        import Ordered.orderingToOrdered;</span><br><span class="line">        def smaller(implicit ord:Ordering[T])=&#123;</span><br><span class="line">            if (first&lt;second)</span><br><span class="line">                first</span><br><span class="line">            else</span><br><span class="line">                second</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    implicit val p1 = new PersonOrdering</span><br><span class="line">    val p = new Pair(Person(&quot;123&quot;),Person(&quot;456&quot;))</span><br><span class="line">    println(p.smaller)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> Note: implicit value p1 is not applicable here because it comes after the application point and it lacks an explicit result type</span><br><span class="line">            if (first&lt;second)</span><br><span class="line">                     ^</span><br><span class="line">one error found</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<h2 id="11-6-多重界定"><a href="#11-6-多重界定" class="headerlink" title="11.6 多重界定"></a>11.6 多重界定</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">多重界定</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">T:M:K</td>
+<td style="text-align:left">在作用域中必须存在M[T]、K[T]类型的隐式值</td>
+</tr>
+<tr>
+<td style="text-align:left">T&lt;%M&lt;%K</td>
+<td style="text-align:left">在作用域中必须存在T到M、T到K的隐式转换</td>
+</tr>
+<tr>
+<td style="text-align:left">K&gt;:T&lt;:M</td>
+<td style="text-align:left">M是T的超类，K也是T的超类</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 多重界定</span><br><span class="line">  */</span><br><span class="line">object Example11_9 extends App &#123;</span><br><span class="line">    class A[T]</span><br><span class="line">    class B[T]</span><br><span class="line"></span><br><span class="line">    implicit val a = new A[String]</span><br><span class="line">    implicit val b = new B[String]</span><br><span class="line"></span><br><span class="line">    def test[T:A:B](x:T)=println(x)</span><br><span class="line">    test(&quot;test&quot;)</span><br><span class="line"></span><br><span class="line">    implicit def t2A[T](x:T)=new A[T]</span><br><span class="line">    implicit def t2B[T](x:T)=new B[T]</span><br><span class="line"></span><br><span class="line">    def test2[T &lt;% A[T] &lt;%B[T]](x:T)=println(x)</span><br><span class="line">    test2(&quot;test2&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-7-协变与逆变"><a href="#11-7-协变与逆变" class="headerlink" title="11.7 协变与逆变"></a>11.7 协变与逆变</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 协变</span><br><span class="line">  */</span><br><span class="line">object Example11_10 extends App &#123;</span><br><span class="line">    class List[+T](val head:T, val tail:List[T])</span><br><span class="line">    val list:List[Any] = new List[String](&quot;covariance&quot;, null)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 协变：逆变位置</span><br><span class="line">  */</span><br><span class="line">object Example11_11 extends App &#123;</span><br><span class="line">    class List[+T](val head: T,val tail: List[T]) &#123;</span><br><span class="line">        def prepend[U&gt;:T](newHead:U):List[U] = new List(newHead,this)</span><br><span class="line">        override def toString()=&quot;&quot;+head</span><br><span class="line">    &#125;</span><br><span class="line">    val list:List[Any] = new List[String](&quot;covariance&quot;,null)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 逆变</span><br><span class="line">  */</span><br><span class="line">object Example11_12 extends App &#123;</span><br><span class="line">    class Person[-A] &#123;</span><br><span class="line">        def test(x:A):Unit = &#123;</span><br><span class="line">            println(x)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val pAny = new Person[Any]</span><br><span class="line">    val pStr:Person[String] = pAny</span><br><span class="line">    pStr.test(&quot;Contravariance test ---&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="11-8-高级类型"><a href="#11-8-高级类型" class="headerlink" title="11.8 高级类型"></a>11.8 高级类型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 使用单例类型时的链式调用(方法执行顺序)</span><br><span class="line">  */</span><br><span class="line">object Example11_13 extends App &#123;</span><br><span class="line">    class Pet &#123;</span><br><span class="line">        private var name:String = null</span><br><span class="line">        private var weight:Float = 0.0f</span><br><span class="line"></span><br><span class="line">        def setName(name:String):this.type=&#123;</span><br><span class="line">            this.name=name</span><br><span class="line">            this</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        def setWeight(weight:Float):this.type=&#123;</span><br><span class="line">            this.weight=weight</span><br><span class="line">            this</span><br><span class="line">        &#125;</span><br><span class="line">        override def toString=s&quot;name=$name,weight=$weight&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Dog extends Pet&#123;</span><br><span class="line">        private var age:Int=0</span><br><span class="line">        def setAge(age:Int):this.type=&#123;</span><br><span class="line">            this.age=age</span><br><span class="line">            this</span><br><span class="line">        &#125;</span><br><span class="line">        override def toString=super.toString + s&quot;,age=$age&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    println(new Dog().setAge(2).setName(&quot;Nancy&quot;).setWeight(20.0f))</span><br><span class="line">    println(new Dog().setName(&quot;Nancy&quot;).setWeight(20.0f).setAge(2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 类型投影  #</span><br><span class="line">  */</span><br><span class="line">object Example11_14 extends App &#123;</span><br><span class="line">    class Outter&#123;</span><br><span class="line">        val x:Int=0</span><br><span class="line">        def test(i:Outter#Inner)=i</span><br><span class="line">        class Inner</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val o1 = new Outter</span><br><span class="line">    val o2 = new Outter</span><br><span class="line"></span><br><span class="line">    val inner2 = new o2.Inner</span><br><span class="line">    val inner1 = new o1.Inner</span><br><span class="line"></span><br><span class="line">    o1.test(inner1)</span><br><span class="line">    o2.test(inner2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h3><ul>
+<li><p>引入重命名不能带具体泛型参数类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import java.util.&#123;HashMap=&gt;JavaHashMap&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型别名必须指定具体泛型参数类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type JavaHashMap=java.util.HashMap[String,String]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 抽象类型：在父类中类型不明确，而在子类中才能确定的类型</span><br><span class="line">  */</span><br><span class="line">object Example11_15 extends App &#123;</span><br><span class="line">    abstract class Food</span><br><span class="line">    class Rice extends Food&#123;</span><br><span class="line">        override def toString=&quot;rice&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    class Meat extends Food&#123;</span><br><span class="line">        override def toString=&quot;meat&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Animal&#123;</span><br><span class="line">        type FoodType</span><br><span class="line">        def eat(f:FoodType)=f</span><br><span class="line">    &#125;</span><br><span class="line">    class Human extends Animal&#123;</span><br><span class="line">        type FoodType=Food</span><br><span class="line">        override def eat(f:FoodType)=f</span><br><span class="line">    &#125;</span><br><span class="line">    class Tiger extends Animal&#123;</span><br><span class="line">        type FoodType=Meat</span><br><span class="line">        override def eat(f:FoodType)=f</span><br><span class="line">    &#125;</span><br><span class="line">    val human = new Human</span><br><span class="line">    val tiger = new Tiger</span><br><span class="line">    println(&quot;Human eats &quot; + human.eat(new Rice))</span><br><span class="line">    println(&quot;Human eats &quot; + human.eat(new Meat))</span><br><span class="line">    println(&quot;Tiger eats &quot; + human.eat(new Meat))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="复合类型：继承一个类并混入若干trait"><a href="#复合类型：继承一个类并混入若干trait" class="headerlink" title="复合类型：继承一个类并混入若干trait"></a>复合类型：继承一个类并混入若干trait</h3><h3 id="函数类型："><a href="#函数类型：" class="headerlink" title="函数类型："></a>函数类型：</h3><ul>
+<li>高阶函数可以将函数对象作为函数的参数</li>
+<li>存在Function[T1,T2,T3,…,T(N+1)]个函数类型，N最大值为22</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala开发快速入门/" rel="tag"># Scala开发快速入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/第10章-隐式转换/" rel="next" title="第10章 隐式转换">
+                <i class="fa fa-chevron-left"></i> 第10章 隐式转换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/第12章-Scala并发编程基础/" rel="prev" title="第12章 Scala并发编程基础">
+                第12章 Scala并发编程基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Phil Han</p>
+              <p class="site-description motion-element" itemprop="description">Data Processor</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-1-类与类型"><span class="nav-number">1.</span> <span class="nav-text">11.1 类与类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-2-泛型"><span class="nav-number">2.</span> <span class="nav-text">11.2 泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-类型变量界定"><span class="nav-number">3.</span> <span class="nav-text">11.3 类型变量界定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-4-视图界定"><span class="nav-number">4.</span> <span class="nav-text">11.4 视图界定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-5-上下文界定"><span class="nav-number">5.</span> <span class="nav-text">11.5 上下文界定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-6-多重界定"><span class="nav-number">6.</span> <span class="nav-text">11.6 多重界定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-7-协变与逆变"><span class="nav-number">7.</span> <span class="nav-text">11.7 协变与逆变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-8-高级类型"><span class="nav-number">8.</span> <span class="nav-text">11.8 高级类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型别名"><span class="nav-number">8.1.</span> <span class="nav-text">类型别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复合类型：继承一个类并混入若干trait"><span class="nav-number">8.2.</span> <span class="nav-text">复合类型：继承一个类并混入若干trait</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数类型："><span class="nav-number">8.3.</span> <span class="nav-text">函数类型：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Phil Han</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

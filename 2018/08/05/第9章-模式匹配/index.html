@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Scala开发快速入门," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="9.1 模式匹配简介123456789101112/**  * Scala模式匹配  */object Example9_01 extends App &amp;#123;    for (i &amp;lt;- 1 to 5)    i match &amp;#123;        case 1 =&amp;gt; println(1)        case 2 =&amp;gt; println(2)        case 3">
+<meta name="keywords" content="Scala开发快速入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第9章 模式匹配">
+<meta property="og:url" content="https://olddream330.github.io/2018/08/05/第9章-模式匹配/index.html">
+<meta property="og:site_name" content="Phil Han&#39;s Notebook">
+<meta property="og:description" content="9.1 模式匹配简介123456789101112/**  * Scala模式匹配  */object Example9_01 extends App &amp;#123;    for (i &amp;lt;- 1 to 5)    i match &amp;#123;        case 1 =&amp;gt; println(1)        case 2 =&amp;gt; println(2)        case 3">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-05T14:00:59.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第9章 模式匹配">
+<meta name="twitter:description" content="9.1 模式匹配简介123456789101112/**  * Scala模式匹配  */object Example9_01 extends App &amp;#123;    for (i &amp;lt;- 1 to 5)    i match &amp;#123;        case 1 =&amp;gt; println(1)        case 2 =&amp;gt; println(2)        case 3">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://olddream330.github.io/2018/08/05/第9章-模式匹配/"/>
+
+
+
+
+
+  <title>第9章 模式匹配 | Phil Han's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Phil Han's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/08/05/第9章-模式匹配/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Phil Han">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Phil Han's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第9章 模式匹配</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T22:00:14+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="9-1-模式匹配简介"><a href="#9-1-模式匹配简介" class="headerlink" title="9.1 模式匹配简介"></a>9.1 模式匹配简介</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * Scala模式匹配</span><br><span class="line">  */</span><br><span class="line">object Example9_01 extends App &#123;</span><br><span class="line">    for (i &lt;- 1 to 5)</span><br><span class="line">    i match &#123;</span><br><span class="line">        case 1 =&gt; println(1)</span><br><span class="line">        case 2 =&gt; println(2)</span><br><span class="line">        case 3 =&gt; println(3)</span><br><span class="line">        case _ =&gt; println(&quot;others&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * Scala模式匹配case语句加入表达式</span><br><span class="line">  */</span><br><span class="line">object Example9_02 extends App &#123;</span><br><span class="line">    for (i &lt;- 1 to 6)</span><br><span class="line">    i match &#123;</span><br><span class="line">        case 1 =&gt; println(1)</span><br><span class="line">        case x if (x%2==0) =&gt; println(s&quot;$x Dividable by 2&quot;)</span><br><span class="line">        case _ =&gt;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 函数中使用模式匹配</span><br><span class="line">  */</span><br><span class="line">object Example9_03 extends App &#123;</span><br><span class="line">    def patternMatching(x:Int) = x match &#123;</span><br><span class="line">        case 5 =&gt; &quot;Int 5&quot;</span><br><span class="line">        case x if (x%2==0) =&gt; &quot;divide by 2&quot;</span><br><span class="line">        case _ =&gt; &quot;other Int&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    println(patternMatching(5))</span><br><span class="line">    println(patternMatching(4))</span><br><span class="line">    println(patternMatching(3))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="9-2-模式匹配的7大类型"><a href="#9-2-模式匹配的7大类型" class="headerlink" title="9.2 模式匹配的7大类型"></a>9.2 模式匹配的7大类型</h2><ul>
+<li>常量模式：case后面全为常量</li>
+<li>变量模式<ul>
+<li><code>case i =&gt;</code> 等同于<code>case _</code></li>
+</ul>
+</li>
+<li>构造函数模式</li>
+<li>序列模式<ul>
+<li><code>case Array(first, _, three, _*)</code> <code>_*</code>只能放在最后，只能在序列模式使用</li>
+</ul>
+</li>
+<li>元组模式</li>
+<li>类型模式</li>
+<li>变量绑定模式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 构造函数模式</span><br><span class="line">  */</span><br><span class="line">object Example9_04 extends App &#123;</span><br><span class="line">    case class Dog(val name:String, val age:Int)</span><br><span class="line">    val dog = Dog(&quot;Pet&quot;, 2)</span><br><span class="line"></span><br><span class="line">    def patternMatching(x:AnyRef) = x match &#123;</span><br><span class="line">        case Dog(name, age) =&gt; println(s&quot;Dog name=$name, age=$age&quot;)</span><br><span class="line">        case _=&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    patternMatching(dog)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 构造函数, 构取对象的部分成员域</span><br><span class="line">  */</span><br><span class="line">object Example9_05 extends App &#123;</span><br><span class="line">    case class Dog(val name:String, val age:Int)</span><br><span class="line">    val dog = Dog(&quot;Pet&quot;, 2)</span><br><span class="line"></span><br><span class="line">    def patternMatching(x:AnyRef) = x match &#123;</span><br><span class="line">        case Dog(_, age) =&gt; println(s&quot;Dog age=$age&quot;)</span><br><span class="line">        case _=&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    patternMatching(dog)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 序列模式</span><br><span class="line">  */</span><br><span class="line">object Example9_06 extends App &#123;</span><br><span class="line">    val arrInt = Array(1,2,3,4)</span><br><span class="line">    def patternMatching(x:AnyRef) = x match &#123;</span><br><span class="line">        case Array(first, second) =&gt; println(s&quot;$first,$second&quot;)</span><br><span class="line">        case Array(first, _, three, _*) =&gt; println(s&quot;$first,$three&quot;)</span><br><span class="line">        case _=&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    patternMatching(arrInt)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 元组模式</span><br><span class="line">  */</span><br><span class="line">object Example9_07 extends App &#123;</span><br><span class="line">    val tupleInt=(1,2,3,4)</span><br><span class="line">    def patternMatching(x:AnyRef) = x match &#123;</span><br><span class="line">        case (first, second) =&gt; println(s&quot;$first,$second&quot;)</span><br><span class="line">        case (first,_,three,_) =&gt; println(s&quot;$first,$three&quot;)</span><br><span class="line">        case _=&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    patternMatching(tupleInt)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 类型模式</span><br><span class="line">  */</span><br><span class="line">object Example9_08 extends App &#123;</span><br><span class="line">    class A</span><br><span class="line">    class B extends A</span><br><span class="line">    class C extends A</span><br><span class="line">    val b = new B</span><br><span class="line">    val c = new C</span><br><span class="line">    def patternMatching(x:AnyRef) = x match &#123;</span><br><span class="line">        case x:String =&gt; println(&quot;String&quot;)</span><br><span class="line">        case x:B =&gt; println(&quot;B&quot;)</span><br><span class="line">        case x:A =&gt; println(&quot;A&quot;)</span><br><span class="line">        case _ =&gt; println(&quot;others&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    patternMatching(&quot;Scala&quot;)</span><br><span class="line">    patternMatching(b)</span><br><span class="line">    patternMatching(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 变量绑定模式</span><br><span class="line">  */</span><br><span class="line">object Example9_09 extends App &#123;</span><br><span class="line">    val list = List(List(1,2,3,4),List(4,5,6,7,8,9))</span><br><span class="line">    def patternMatching(x:AnyRef) = x match &#123;</span><br><span class="line">        case e1@List(_, e2@List(4,_*)) =&gt; println(e1, e2)</span><br><span class="line">        case _ =&gt; </span><br><span class="line">    &#125;</span><br><span class="line">    patternMatching(list)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="9-3-模式匹配原理"><a href="#9-3-模式匹配原理" class="headerlink" title="9.3 模式匹配原理"></a>9.3 模式匹配原理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 构造函数模式匹配原理</span><br><span class="line">  * 如果将Dog类定义成普通的类，则不能使用构造函数模式匹配</span><br><span class="line">  * 需要显式定义Dog类的伴生对象并在伴生对象中实现unapply</span><br><span class="line">  * 序列模式匹配原理unapplySeq</span><br><span class="line">  */</span><br><span class="line">object Example9_10 extends App &#123;</span><br><span class="line">    class Dog(val name:String, val age:Int)</span><br><span class="line">    object Dog &#123;</span><br><span class="line">        def unapply(dog:Dog):Option[(String,Int)]=&#123;</span><br><span class="line">            if (dog != null) Some(dog.name, dog.age)</span><br><span class="line">            else None</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val dog = new Dog(&quot;Pet&quot;, 2)</span><br><span class="line"></span><br><span class="line">    def patternMatching(x:AnyRef) = x match &#123;</span><br><span class="line">        case Dog(name, age) =&gt; println(s&quot;$name, $age&quot;)</span><br><span class="line">        case _=&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    patternMatching(dog)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="9-4-正则表达式与模式匹配"><a href="#9-4-正则表达式与模式匹配" class="headerlink" title="9.4 正则表达式与模式匹配"></a>9.4 正则表达式与模式匹配</h2><ul>
+<li>Scala方式：<ul>
+<li>val dateP1 = “””(\d\d\d\d)-(\d\d)-(\d\d)”””.r</li>
+<li>val dateP2 = new scala.util.matching.Regex(“””(\d\d\d\d)-(\d\d)-(\d\d)”””)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 正则表达式（java方式）</span><br><span class="line">  */</span><br><span class="line">object Example9_11 extends App &#123;</span><br><span class="line">    import java.util.regex.Pattern</span><br><span class="line"></span><br><span class="line">    val line = &quot;Hadoop has been the most popular big data &quot; +</span><br><span class="line">            &quot;processing tool since 2005-11-21&quot;</span><br><span class="line">    val rgex = &quot;(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)&quot;</span><br><span class="line">    val pattern = Pattern.compile(rgex)</span><br><span class="line">    val m = pattern.matcher(line)</span><br><span class="line">    if (m.find()) &#123;</span><br><span class="line">        println(m.group(0))</span><br><span class="line">        println(m.group(1))</span><br><span class="line">        println(m.group(2))</span><br><span class="line">        println(m.group(3))</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        println(&quot;Not Found&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">val rgex = &quot;&quot;&quot;(\d\d\d\d)-(\d\d)-(\d\d)&quot;&quot;&quot;.r</span><br><span class="line">// def findAllIn(source:CharSequence):MatchIterator</span><br><span class="line">for (date &lt;- rgex findAllIn &quot;2015-12-31 2016-02-20&quot;) &#123;</span><br><span class="line">    println(date)</span><br><span class="line">&#125;</span><br><span class="line">// def findAllMatchIn(source:CharSequence):Iterator[Match]</span><br><span class="line">for (date &lt;- rgex findAllMatchIn &quot;2015-12-31 2016-02-20&quot;) &#123;</span><br><span class="line">    println(date.groupCount)</span><br><span class="line">&#125;</span><br><span class="line">// def findFirstIn(source:CharSequence):Option[String]</span><br><span class="line">val copyright:String = rgex findFirstIn &quot;Date of this document:2011-07-15&quot; match &#123;</span><br><span class="line">    case Some(date) =&gt; &quot;Copyright &quot; + date</span><br><span class="line">    case None       =&gt; &quot;No copyright&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val dateP2 = new scala.util.matching.Regex(&quot;&quot;&quot;(\d\d\d\d)-(\d\d)-(\d\d)&quot;&quot;&quot;,&quot;year&quot;,&quot;month&quot;,&quot;day&quot;)</span><br><span class="line">// def findFirstMatchIn(source:CharSequence):Option[Match]</span><br><span class="line">val result = dateP2 findFirstMatchIn &quot;2015-12-31 2016-02-20&quot; match &#123;</span><br><span class="line">    case Some(m) =&gt; &quot;year: &quot; + m.group(&quot;year&quot;)</span><br><span class="line">    case None    =&gt; &quot;No match&quot;</span><br><span class="line">&#125;</span><br><span class="line">// def replaceAllIn(target:CharSequence, replacer:(Match) =&gt; String):String</span><br><span class="line">val text = &quot;From 2011-07-15 to 2011-07-17&quot;</span><br><span class="line">val repl = dateP2 replaceAllIn (text, m =&gt; m.group(&quot;month&quot;) + &quot;/&quot; + m.group(&quot;day&quot;))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 提取模式的分组值</span><br><span class="line">  */</span><br><span class="line">object Example9_12 extends App &#123;</span><br><span class="line">    val dateRegx = &quot;&quot;&quot;(\d\d\d\d)-(\d\d)-(\d\d)&quot;&quot;&quot;.r</span><br><span class="line">    val text = &quot;2015-12-31 2016-02-20&quot;</span><br><span class="line"></span><br><span class="line">    for (date &lt;- dateRegx.findAllIn(text)) &#123;</span><br><span class="line">        date match &#123;</span><br><span class="line">            case dateRegx(year, month, day) =&gt; println(s&quot;Match $year $month $day&quot;)</span><br><span class="line">            case _=&gt;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for (dateRegx(year, month, day) &lt;- dateRegx.findAllIn(text)) &#123;</span><br><span class="line">        println(s&quot;For match $year $month $day&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * findFirstMatchIn、findFirstIn与模式匹配</span><br><span class="line">  */</span><br><span class="line">object Example9_13 extends App &#123;</span><br><span class="line">    val dateRegx = &quot;&quot;&quot;(\d\d\d\d)-(\d\d)-(\d\d)&quot;&quot;&quot;.r</span><br><span class="line">    val text = &quot;2015-12-31 2016-02-20&quot;</span><br><span class="line"></span><br><span class="line">    dateRegx.findFirstMatchIn(text) match &#123;</span><br><span class="line">        case Some(dateRegx(year, month, day)) =&gt; println(s&quot;findFirstMatchIn match $year $month $day&quot;)</span><br><span class="line">        case None =&gt; println(&quot;No match&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dateRegx.findFirstIn(text) match &#123;</span><br><span class="line">        case Some(dateRegx(year, month, day)) =&gt; println(s&quot;findFirstIn match $year $month $day&quot;)</span><br><span class="line">        case None =&gt; println(&quot;No match&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="9-5-for循环中的模式匹配"><a href="#9-5-for循环中的模式匹配" class="headerlink" title="9.5 for循环中的模式匹配"></a>9.5 for循环中的模式匹配</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (List(first,_*) &lt;- List(List(1,2,3), List(4,5,6,7))) &#123;</span><br><span class="line">    println(s&quot;first is $first&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="9-6-模式匹配与样例类、样例对象"><a href="#9-6-模式匹配与样例类、样例对象" class="headerlink" title="9.6 模式匹配与样例类、样例对象"></a>9.6 模式匹配与样例类、样例对象</h2><ul>
+<li>case class 与case object的差异：<ul>
+<li>在模式匹配时，case class需要先创建对象， case object可直接使用</li>
+<li>case class生成两个字节码文件，case object生成一个</li>
+<li>case class生成的伴生对象自动实现apply、unapply，case object不会</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * case class与模式匹配</span><br><span class="line">  */</span><br><span class="line">object Example9_14 extends App &#123;</span><br><span class="line">    sealed trait DeployMessage</span><br><span class="line"></span><br><span class="line">    case class RegisterWorker(id: String, host:String, port:Int) extends DeployMessage</span><br><span class="line">    case class UnRegisterWorker(id: String, host:String, port:Int) extends DeployMessage</span><br><span class="line">    case class Heartbeat(workerId:String) extends DeployMessage</span><br><span class="line"></span><br><span class="line">    def handleMessage(msg: DeployMessage) = msg match &#123;</span><br><span class="line">        case RegisterWorker(id,host,port) =&gt; s&quot;The worker $id is registering on $host:$port&quot;</span><br><span class="line">        case UnRegisterWorker(id,host,port) =&gt; s&quot;The worker $id is unregistering on $host:$port&quot;</span><br><span class="line">        case Heartbeat(id) =&gt; s&quot;The worker $id is sending heartbeat&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val msgRegister = RegisterWorker(&quot;204799&quot;, &quot;192.168.1.109&quot;, 8079)</span><br><span class="line"></span><br><span class="line">    println(handleMessage(msgRegister))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * case object与模式匹配</span><br><span class="line">  */</span><br><span class="line">object Example9_15 extends App &#123;</span><br><span class="line">    sealed trait DeployMessage</span><br><span class="line"></span><br><span class="line">    case class RegisterWorker(id: String, host:String, port:Int) extends DeployMessage</span><br><span class="line">    case class UnRegisterWorker(id: String, host:String, port:Int) extends DeployMessage</span><br><span class="line">    case class Heartbeat(workerId:String) extends DeployMessage</span><br><span class="line">    case object RequestWorkerState extends DeployMessage</span><br><span class="line"></span><br><span class="line">    def handleMessage(msg: DeployMessage) = msg match &#123;</span><br><span class="line">        case RegisterWorker(id,host,port) =&gt; s&quot;The worker $id is registering on $host:$port&quot;</span><br><span class="line">        case UnRegisterWorker(id,host,port) =&gt; s&quot;The worker $id is unregistering on $host:$port&quot;</span><br><span class="line">        case Heartbeat(id) =&gt; s&quot;The worker $id is sending heartbeat&quot;</span><br><span class="line">        case RequestWorkerState =&gt; &quot;Request Worker State&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val msgRegister = RegisterWorker(&quot;204799&quot;, &quot;192.168.1.109&quot;, 8079)</span><br><span class="line"></span><br><span class="line">    println(handleMessage(msgRegister))</span><br><span class="line">    println(handleMessage(RequestWorkerState))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala开发快速入门/" rel="tag"># Scala开发快速入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/第8章-包/" rel="next" title="第8章 包">
+                <i class="fa fa-chevron-left"></i> 第8章 包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/第10章-隐式转换/" rel="prev" title="第10章 隐式转换">
+                第10章 隐式转换 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Phil Han</p>
+              <p class="site-description motion-element" itemprop="description">Data Processor</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-模式匹配简介"><span class="nav-number">1.</span> <span class="nav-text">9.1 模式匹配简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-模式匹配的7大类型"><span class="nav-number">2.</span> <span class="nav-text">9.2 模式匹配的7大类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-模式匹配原理"><span class="nav-number">3.</span> <span class="nav-text">9.3 模式匹配原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-4-正则表达式与模式匹配"><span class="nav-number">4.</span> <span class="nav-text">9.4 正则表达式与模式匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#methods"><span class="nav-number">4.1.</span> <span class="nav-text">methods</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-5-for循环中的模式匹配"><span class="nav-number">5.</span> <span class="nav-text">9.5 for循环中的模式匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-6-模式匹配与样例类、样例对象"><span class="nav-number">6.</span> <span class="nav-text">9.6 模式匹配与样例类、样例对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Phil Han</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

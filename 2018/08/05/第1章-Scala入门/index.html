@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Scala开发快速入门," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.1 Scala简介1.2 Scala开发环境搭建1.3 Scala Hello World1.4 IDEA常用快捷键1.4.1 编辑   快捷键 作用     Ctrl+Shift+Up(Down) 移动选中的代码   Ctrl+D 复制选中的代码   Ctrl+Y 删除   Ctrl+/ 删除//注释   Ctrl+Shift+/ 删除/**/注释   Ctrl+F 查找   Ctrl+R">
+<meta name="keywords" content="Scala开发快速入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第1章 Scala入门">
+<meta property="og:url" content="https://olddream330.github.io/2018/08/05/第1章-Scala入门/index.html">
+<meta property="og:site_name" content="Phil Han&#39;s Notebook">
+<meta property="og:description" content="1.1 Scala简介1.2 Scala开发环境搭建1.3 Scala Hello World1.4 IDEA常用快捷键1.4.1 编辑   快捷键 作用     Ctrl+Shift+Up(Down) 移动选中的代码   Ctrl+D 复制选中的代码   Ctrl+Y 删除   Ctrl+/ 删除//注释   Ctrl+Shift+/ 删除/**/注释   Ctrl+F 查找   Ctrl+R">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-05T13:49:37.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第1章 Scala入门">
+<meta name="twitter:description" content="1.1 Scala简介1.2 Scala开发环境搭建1.3 Scala Hello World1.4 IDEA常用快捷键1.4.1 编辑   快捷键 作用     Ctrl+Shift+Up(Down) 移动选中的代码   Ctrl+D 复制选中的代码   Ctrl+Y 删除   Ctrl+/ 删除//注释   Ctrl+Shift+/ 删除/**/注释   Ctrl+F 查找   Ctrl+R">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://olddream330.github.io/2018/08/05/第1章-Scala入门/"/>
+
+
+
+
+
+  <title>第1章 Scala入门 | Phil Han's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Phil Han's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/08/05/第1章-Scala入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Phil Han">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Phil Han's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第1章 Scala入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T21:47:50+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-1-Scala简介"><a href="#1-1-Scala简介" class="headerlink" title="1.1 Scala简介"></a>1.1 Scala简介</h2><h2 id="1-2-Scala开发环境搭建"><a href="#1-2-Scala开发环境搭建" class="headerlink" title="1.2 Scala开发环境搭建"></a>1.2 Scala开发环境搭建</h2><h2 id="1-3-Scala-Hello-World"><a href="#1-3-Scala-Hello-World" class="headerlink" title="1.3 Scala Hello World"></a>1.3 Scala Hello World</h2><h2 id="1-4-IDEA常用快捷键"><a href="#1-4-IDEA常用快捷键" class="headerlink" title="1.4 IDEA常用快捷键"></a>1.4 IDEA常用快捷键</h2><h3 id="1-4-1-编辑"><a href="#1-4-1-编辑" class="headerlink" title="1.4.1 编辑"></a>1.4.1 编辑</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">快捷键</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl+Shift+Up(Down)</td>
+<td style="text-align:left">移动选中的代码</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+D</td>
+<td style="text-align:left">复制选中的代码</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Y</td>
+<td style="text-align:left">删除</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+/</td>
+<td style="text-align:left">删除<code>//</code>注释</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+/</td>
+<td style="text-align:left">删除<code>/**/</code>注释</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+F</td>
+<td style="text-align:left">查找</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+R</td>
+<td style="text-align:left">查找并替换</td>
+</tr>
+<tr>
+<td style="text-align:left">Alt+左箭头</td>
+<td style="text-align:left">切换前一tab</td>
+</tr>
+<tr>
+<td style="text-align:left">Alt+右箭头</td>
+<td style="text-align:left">切换后一tab</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Alt+T</td>
+<td style="text-align:left">使用if、for、while、try包裹当前选中</td>
+</tr>
+<tr>
+<td style="text-align:left">Alt+Enter</td>
+<td style="text-align:left">快速修正</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-2-导航"><a href="#1-4-2-导航" class="headerlink" title="1.4.2 导航"></a>1.4.2 导航</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">快捷键</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl+E</td>
+<td style="text-align:left">显示最近访问</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+N</td>
+<td style="text-align:left">导航到指定类</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+N</td>
+<td style="text-align:left">导航到指定文件、文件夹</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Shift+Alt+N</td>
+<td style="text-align:left">导航到指定方法或成员变量</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+H</td>
+<td style="text-align:left">显示继承关系</td>
+</tr>
+<tr>
+<td style="text-align:left">Shift+Shift</td>
+<td style="text-align:left">整个工程中查找</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-3-编译、运行及调试"><a href="#1-4-3-编译、运行及调试" class="headerlink" title="1.4.3 编译、运行及调试"></a>1.4.3 编译、运行及调试</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">快捷键</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl+F9</td>
+<td style="text-align:left">编译</td>
+</tr>
+<tr>
+<td style="text-align:left">Shift+F10</td>
+<td style="text-align:left">运行</td>
+</tr>
+<tr>
+<td style="text-align:left">Shift+F9</td>
+<td style="text-align:left">调试</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+F8</td>
+<td style="text-align:left">设置断点</td>
+</tr>
+<tr>
+<td style="text-align:left">F7</td>
+<td style="text-align:left">step into</td>
+</tr>
+<tr>
+<td style="text-align:left">F8</td>
+<td style="text-align:left">step out</td>
+</tr>
+<tr>
+<td style="text-align:left">F9</td>
+<td style="text-align:left">恢复执行</td>
+</tr>
+<tr>
+<td style="text-align:left">Alt+F8</td>
+<td style="text-align:left">表达式计算</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-4-4-代码格式化"><a href="#1-4-4-代码格式化" class="headerlink" title="1.4.4 代码格式化"></a>1.4.4 代码格式化</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">快捷键</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Ctrl+Alt+L</td>
+<td style="text-align:left">格式化</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Alt+I</td>
+<td style="text-align:left">自动缩进</td>
+</tr>
+<tr>
+<td style="text-align:left">Ctrl+Alt+O</td>
+<td style="text-align:left">引入优化</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-5-交互式命令行使用"><a href="#1-5-交互式命令行使用" class="headerlink" title="1.5 交互式命令行使用"></a>1.5 交互式命令行使用</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala开发快速入门/" rel="tag"># Scala开发快速入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/第2章-变量及基本数据类型/" rel="prev" title="第2章 变量及基本数据类型">
+                第2章 变量及基本数据类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Phil Han</p>
+              <p class="site-description motion-element" itemprop="description">Data Processor</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Scala简介"><span class="nav-number">1.</span> <span class="nav-text">1.1 Scala简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Scala开发环境搭建"><span class="nav-number">2.</span> <span class="nav-text">1.2 Scala开发环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Scala-Hello-World"><span class="nav-number">3.</span> <span class="nav-text">1.3 Scala Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-IDEA常用快捷键"><span class="nav-number">4.</span> <span class="nav-text">1.4 IDEA常用快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-编辑"><span class="nav-number">4.1.</span> <span class="nav-text">1.4.1 编辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-导航"><span class="nav-number">4.2.</span> <span class="nav-text">1.4.2 导航</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-编译、运行及调试"><span class="nav-number">4.3.</span> <span class="nav-text">1.4.3 编译、运行及调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-4-代码格式化"><span class="nav-number">4.4.</span> <span class="nav-text">1.4.4 代码格式化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-交互式命令行使用"><span class="nav-number">5.</span> <span class="nav-text">1.5 交互式命令行使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Phil Han</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
