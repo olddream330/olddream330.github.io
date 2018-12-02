@@ -1,6 +1,5 @@
 ---
 title: Hello World
-date: 2018-08-01 21:47:50
 tags: Start
 ---
 
