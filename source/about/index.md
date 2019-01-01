@@ -40,11 +40,12 @@ date: 2018-08-05 21:34:41
 ## Self-assessment
 + Data Processor, including data cleaning, presentation for reporting, verify qualities, etc.
 + Fluent with Excel.
-+ Fluent with DQL.
-+ Familiar with Pyhton3(pandas, sqlalchemy, etc).
-+ Know a little about Scala(JDBC, metadata-extractor, baidu geocoding API, etc).
++ Fluent with SQL.
++ Familiar with Python3(pandas, sqlalchemy, etc).
++ Basic Scala knownledges.
++ Basic shell skills(debian).
     
 ## Knowledge Frame
-+ Python
++ Python3
 + MS Excel
 + SQL
