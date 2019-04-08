@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python运维," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一部分 基础篇系统基础信息模块psutil shell free -m | ag Mem | awk &amp;#39;{print $2}&amp;#39;  123import psutilmem = psutil.virtual_memory()mem.total, mem.used (8229679104, 2548932608) 系统信息1234# CPU利用率： User Time, System">
+<meta name="keywords" content="Python运维">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python运维(基础篇)">
+<meta property="og:url" content="https://olddream330.github.io/2019/04/08/Python运维(基础篇)/index.html">
+<meta property="og:site_name" content="Phil Han&#39;s Notebook">
+<meta property="og:description" content="第一部分 基础篇系统基础信息模块psutil shell free -m | ag Mem | awk &amp;#39;{print $2}&amp;#39;  123import psutilmem = psutil.virtual_memory()mem.total, mem.used (8229679104, 2548932608) 系统信息1234# CPU利用率： User Time, System">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-08T13:31:52.399Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python运维(基础篇)">
+<meta name="twitter:description" content="第一部分 基础篇系统基础信息模块psutil shell free -m | ag Mem | awk &amp;#39;{print $2}&amp;#39;  123import psutilmem = psutil.virtual_memory()mem.total, mem.used (8229679104, 2548932608) 系统信息1234# CPU利用率： User Time, System">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://olddream330.github.io/2019/04/08/Python运维(基础篇)/"/>
+
+
+
+
+
+  <title>Python运维(基础篇) | Phil Han's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Phil Han's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2019/04/08/Python运维(基础篇)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Phil Han">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Phil Han's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python运维(基础篇)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-08T21:30:04+08:00">
+                2019-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一部分-基础篇"><a href="#第一部分-基础篇" class="headerlink" title="第一部分 基础篇"></a>第一部分 基础篇</h2><h3 id="系统基础信息模块"><a href="#系统基础信息模块" class="headerlink" title="系统基础信息模块"></a>系统基础信息模块</h3><h4 id="psutil"><a href="#psutil" class="headerlink" title="psutil"></a>psutil</h4><ul>
+<li>shell <code>free -m | ag Mem | awk &#39;{print $2}&#39;</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> psutil</span><br><span class="line">mem = psutil.virtual_memory()</span><br><span class="line">mem.total, mem.used</span><br></pre></td></tr></table></figure>
+<pre><code>(8229679104, 2548932608)
+</code></pre><h5 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CPU利用率： User Time, System Time, Wait IO, Idle</span></span><br><span class="line">psutil.cpu_times()</span><br><span class="line">psutil.cpu_times().user</span><br><span class="line">psutil.cpu_count(logical=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>2
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 内存</span></span><br><span class="line">psutil.virtual_memory()</span><br><span class="line">psutil.swap_memory()</span><br></pre></td></tr></table></figure>
+<pre><code>sswap(total=8444178432, used=0, free=8444178432, percent=0.0, sin=0, sout=0)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 磁盘</span></span><br><span class="line">psutil.disk_partitions()</span><br><span class="line">psutil.disk_usage(<span class="string">'/home'</span>)</span><br><span class="line">psutil.disk_io_counters(perdisk=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>{&apos;sda&apos;: sdiskio(read_count=78381, write_count=88833, read_bytes=2100783104, write_bytes=3724104704, read_time=37900, write_time=337344, read_merged_count=12656, write_merged_count=125377, busy_time=92668),
+ &apos;sda1&apos;: sdiskio(read_count=132, write_count=2, read_bytes=5841920, write_bytes=1024, read_time=92, write_time=0, read_merged_count=505, write_merged_count=0, busy_time=68),
+ &apos;sda2&apos;: sdiskio(read_count=78102, write_count=85876, read_bytes=2090419200, write_bytes=3724103680, read_time=37708, write_time=331428, read_merged_count=12151, write_merged_count=125377, busy_time=86976),
+ &apos;sda3&apos;: sdiskio(read_count=79, write_count=0, read_bytes=2834432, write_bytes=0, read_time=80, write_time=0, read_merged_count=0, write_merged_count=0, busy_time=72),
+ &apos;sdb&apos;: sdiskio(read_count=19804, write_count=10235, read_bytes=2424295424, write_bytes=2018324480, read_time=113548, write_time=9251732, read_merged_count=206, write_merged_count=482537, busy_time=135780),
+ &apos;sdb1&apos;: sdiskio(read_count=19717, write_count=10218, read_bytes=2422161408, write_bytes=2018324480, read_time=113024, write_time=9249532, read_merged_count=206, write_merged_count=482537, busy_time=133096),
+ &apos;sdc&apos;: sdiskio(read_count=803, write_count=0, read_bytes=26894336, write_bytes=0, read_time=4760, write_time=0, read_merged_count=0, write_merged_count=0, busy_time=2952),
+ &apos;sdc1&apos;: sdiskio(read_count=715, write_count=0, read_bytes=24723456, write_bytes=0, read_time=4104, write_time=0, read_merged_count=0, write_merged_count=0, busy_time=2376)}
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 网络</span></span><br><span class="line">psutil.net_io_counters(pernic=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>{&apos;enp3s0&apos;: snetio(bytes_sent=0, bytes_recv=0, packets_sent=0, packets_recv=0, errin=0, errout=0, dropin=0, dropout=0),
+ &apos;lo&apos;: snetio(bytes_sent=51166695, bytes_recv=51166695, packets_sent=8569, packets_recv=8569, errin=0, errout=0, dropin=0, dropout=0),
+ &apos;wlp4s0&apos;: snetio(bytes_sent=130920677, bytes_recv=1928265793, packets_sent=1100800, packets_recv=1367419, errin=0, errout=0, dropin=0, dropout=0)}
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="comment"># 其他</span></span><br><span class="line">psutil.users()</span><br><span class="line">datetime.datetime.fromtimestamp(psutil.boot_time()).strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>&apos;2019-04-05 10:18:53&apos;
+</code></pre><h5 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">psutil.pids()</span><br><span class="line">p = psutil.Process(<span class="number">2271</span>)</span><br><span class="line">p.name()</span><br><span class="line">p.exe()</span><br><span class="line">p.cwd()</span><br><span class="line">p.status()</span><br><span class="line">datetime.datetime.fromtimestamp(p.create_time()).strftime(<span class="string">"%Y-%m-%d %H:%M:%S"</span>)</span><br><span class="line">p.uids()</span><br><span class="line">p.gids()</span><br><span class="line">p.cpu_times()</span><br><span class="line">p.cpu_affinity() <span class="comment"># 亲和度</span></span><br><span class="line">p.memory_percent()</span><br><span class="line">p.memory_info()</span><br><span class="line">p.io_counters()</span><br><span class="line">p.connections() <span class="comment"># 返回socket namedtuples</span></span><br><span class="line">p.num_threads()</span><br><span class="line"></span><br><span class="line"><span class="comment"># popen</span></span><br><span class="line"><span class="keyword">from</span> subprocess <span class="keyword">import</span> PIPE</span><br><span class="line">pop = psutil.Popen([<span class="string">"/usr/bin/python"</span>, <span class="string">"-c"</span>, <span class="string">"print('hallo')"</span>], stdout=PIPE)</span><br><span class="line">pop.name()</span><br><span class="line">pop.username()</span><br><span class="line">pop.communicate()</span><br></pre></td></tr></table></figure>
+<pre><code>(b&apos;hallo\n&apos;, None)
+</code></pre><h4 id="IPy"><a href="#IPy" class="headerlink" title="IPy"></a>IPy</h4><h5 id="IP地址、网段"><a href="#IP地址、网段" class="headerlink" title="IP地址、网段"></a>IP地址、网段</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPy <span class="keyword">import</span> IP</span><br><span class="line"></span><br><span class="line">IP(<span class="string">'10.0.0.0/8'</span>).version()</span><br><span class="line">IP(<span class="string">'::1'</span>).version()</span><br><span class="line"></span><br><span class="line">ips = IP(<span class="string">'192.168.0.0/16'</span>)</span><br><span class="line">ips.len()</span><br><span class="line"></span><br><span class="line">ip = IP(<span class="string">'192.168.1.102'</span>)</span><br><span class="line">ip.reverseNames()</span><br><span class="line">ip.iptype()</span><br><span class="line">ip.int()</span><br><span class="line">ip.strHex()</span><br><span class="line">ip.strBin()</span><br><span class="line"></span><br><span class="line">IP(<span class="string">'192.168.1.102'</span>).make_net(<span class="string">'255.255.255.0'</span>)</span><br><span class="line">IP(<span class="string">'192.168.1.102/255.255.255.0'</span>, make_net=<span class="keyword">True</span>)</span><br><span class="line">IP(<span class="string">'192.168.1.0-192.168.1.255'</span>, make_net=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># wantprefixlen</span></span><br><span class="line">IP(<span class="string">'192.168.1.0/24'</span>).strNormal(<span class="number">0</span>)  <span class="comment"># 无返回 '192.168.1.0'</span></span><br><span class="line">IP(<span class="string">'192.168.1.0/24'</span>).strNormal(<span class="number">1</span>)  <span class="comment"># prefix '192.168.1.0/24'</span></span><br><span class="line">IP(<span class="string">'192.168.1.0/24'</span>).strNormal(<span class="number">2</span>)  <span class="comment"># decimalnetmask '192.168.1.0/255.255.255.0'</span></span><br><span class="line">IP(<span class="string">'192.168.1.0/24'</span>).strNormal(<span class="number">3</span>)  <span class="comment"># lastIP '192.168.1.0-192.168.1.255'</span></span><br></pre></td></tr></table></figure>
+<pre><code>&apos;192.168.1.0-192.168.1.255&apos;
+</code></pre><h5 id="多网络计算"><a href="#多网络计算" class="headerlink" title="多网络计算"></a>多网络计算</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IP(<span class="string">'10.0.0.0/24'</span>) &lt; IP(<span class="string">'12.0.0.0/24'</span>)</span><br><span class="line"><span class="string">'192.168.1.102'</span> <span class="keyword">in</span> IP(<span class="string">'192.168.1.0/24'</span>)</span><br><span class="line">IP(<span class="string">'192.168.1.0/24'</span>) <span class="keyword">in</span> IP(<span class="string">'192.168.0.0/16'</span>)</span><br><span class="line"></span><br><span class="line">IP(<span class="string">'192.168.0.0/23'</span>).overlaps(<span class="string">'192.168.1.0/24'</span>)  <span class="comment"># 1  存在重叠</span></span><br><span class="line">IP(<span class="string">'192.168.1.0/24'</span>).overlaps(<span class="string">'192.168.2.0'</span>)  <span class="comment"># 0  不存在重叠</span></span><br></pre></td></tr></table></figure>
+<pre><code>0
+</code></pre><h4 id="dnspython"><a href="#dnspython" class="headerlink" title="dnspython"></a>dnspython</h4><ul>
+<li>nslookup</li>
+<li>dig</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dns.resolver</span><br><span class="line"></span><br><span class="line">domain = <span class="string">'google.com'</span></span><br><span class="line"></span><br><span class="line">A = dns.resolver.query(domain, <span class="string">'A'</span>)  <span class="comment"># A  主机名转换为IP地址</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> A.response.answer:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> i.items:</span><br><span class="line">        print(<span class="string">'A: '</span>, j)</span><br><span class="line">print(<span class="string">'--------------------------------'</span>)</span><br><span class="line">        </span><br><span class="line">MX = dns.resolver.query(domain, <span class="string">'MX'</span>)  <span class="comment"># MX  定义邮件服务器的域名</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> MX:</span><br><span class="line">    print(<span class="string">'MX: '</span>, i.preference, i.exchange)</span><br><span class="line">print(<span class="string">'--------------------------------'</span>)</span><br><span class="line"></span><br><span class="line">NS = dns.resolver.query(domain, <span class="string">'NS'</span>)  <span class="comment"># NS  域名服务器及授权子域, 只限一级域名， 如： baidu.com</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> NS.response.answer:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> i.items:</span><br><span class="line">        print(<span class="string">'NS: '</span>, j.to_text())</span><br><span class="line">print(<span class="string">'--------------------------------'</span>)</span><br><span class="line"></span><br><span class="line">CNAME = dns.resolver.query(<span class="string">'www.baidu.com'</span>, <span class="string">'CNAME'</span>)  <span class="comment"># CNAME  别名记录， 实现域名间的映射</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> CNAME.response.answer:</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> i.items:</span><br><span class="line">        print(<span class="string">'CNAME: '</span>, j.to_text())</span><br></pre></td></tr></table></figure>
+<pre><code>A:  172.217.161.174
+--------------------------------
+MX:  10 aspmx.l.google.com.
+MX:  40 alt3.aspmx.l.google.com.
+MX:  50 alt4.aspmx.l.google.com.
+MX:  20 alt1.aspmx.l.google.com.
+MX:  30 alt2.aspmx.l.google.com.
+--------------------------------
+NS:  ns2.google.com.
+NS:  ns1.google.com.
+NS:  ns3.google.com.
+NS:  ns4.google.com.
+--------------------------------
+CNAME:  www.a.shifen.com.
+</code></pre><h3 id="业务服务监控"><a href="#业务服务监控" class="headerlink" title="业务服务监控"></a>业务服务监控</h3><h4 id="文件内容差异对比"><a href="#文件内容差异对比" class="headerlink" title="文件内容差异对比"></a>文件内容差异对比</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">d = difflib.Differ()  # 比较字符串</span><br><span class="line">           .SequenceMatcher()  # 比较序列</span><br><span class="line">d.compare(text1, text2)</span><br><span class="line"></span><br><span class="line">d = difflib.HtmlDiff()  # 比较结果输出</span><br><span class="line">d.make_file(text1, text2)</span><br></pre></td></tr></table></figure>
+<h4 id="目录差异对比"><a href="#目录差异对比" class="headerlink" title="目录差异对比"></a>目录差异对比</h4><ul>
+<li>cmp(f1, f2, shallow=True) 单文件, shallow=True忽略文件内容对比</li>
+<li><p>cmpfiles 多文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">filecmp.cmpfiles(dir1, dir2, [指定文件])</span><br><span class="line">return (匹配， 不匹配， 错误)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dircmp 目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filecmp.dircmp(dir1, dir2, [&apos;test.py&apos;])  # 忽略test.py</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方法<ul>
+<li>report()  指定目录</li>
+<li>report_partial_closure()  当前及第一级子目录</li>
+<li>report_full_closure()  递归所有</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>left</li>
+<li>right</li>
+<li>left_list 左目录中的文件及目录列表</li>
+<li>right_list</li>
+<li>common 共同存在的文件或目录</li>
+<li>left_only</li>
+<li>right_only</li>
+<li>common_dirs</li>
+<li>common_files</li>
+<li>common_funny <em>两边都存在但不同类型或os.stat()记录错误的子目录</em></li>
+<li>same_files</li>
+<li>diff_files</li>
+<li>funny_files 两边都存在但无法比较的文件</li>
+<li>subdirs <code>common_dirs</code>映射到新的字典类型的dircmp对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="smtplib"><a href="#smtplib" class="headerlink" title="smtplib"></a>smtplib</h4><ul>
+<li>smtplib.SMTP方法<ul>
+<li>connect(“smtp.163.com”, “25”)</li>
+<li>login(user, pass)</li>
+<li>sendmail(from, to, msg)</li>
+<li>starttls()</li>
+<li>quit()</li>
+</ul>
+</li>
+<li>MIME<ul>
+<li>email.mime.multipart.MIMEMultipart</li>
+<li>email.mime.audio.MIMEAudio</li>
+<li>email.mime.image.MIMEImage</li>
+<li>email.mime.text.MIMEText</li>
+</ul>
+</li>
+</ul>
+<h4 id="Web服务质量"><a href="#Web服务质量" class="headerlink" title="Web服务质量"></a>Web服务质量</h4><ul>
+<li>pycurl.Curl()<ul>
+<li>close()</li>
+<li>perform() 提交请求</li>
+<li>setopt(opt, value)<ul>
+<li>.CONNECTTIMEOUT  连接等待时间</li>
+<li>.TIMEOUT</li>
+<li>.NOPROGRESS  进度条，非0则屏蔽</li>
+<li>.MAXREDIRS  最大重定向数</li>
+<li>.FORBID_REUSE</li>
+<li>.FRESH_CONNECT  强制获取新的连接</li>
+<li>.DNS_CACHE_TIMEOUT  保存DNS信息的时间， 默认120秒</li>
+<li>.URL  指定请求的URL</li>
+<li>.USERAGENT</li>
+<li>.HEADERFUNCTION  返回的header定向到回调函数</li>
+<li>.WRITEFUNCTION  返回的body定向到回调函数</li>
+<li>.WRITEHEADER  返回的header定向到对象</li>
+<li>.WRITEDATA  返回的html内容定向到对象</li>
+</ul>
+</li>
+<li>getinfo(opt)<ul>
+<li>.HTTP_CODE</li>
+<li>.TOTAL_TIME</li>
+<li>.NAMELOOKUP_TIME  DNS解析时间</li>
+<li>.CONNECT_TIME</li>
+<li>.PRETRANSFER_TIME</li>
+<li>.STARTTRANSFER_TIME</li>
+<li>.REDIRECT_TIME</li>
+<li>.SIZE_UPLOAD</li>
+<li>.SIZE_DOWNLOAD</li>
+<li>.SPEED_UPLOAD  平均上传速度</li>
+<li>.SPEED_DOWNLOAD</li>
+<li>.HEADER_SIZE</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="定制业务质量报表"><a href="#定制业务质量报表" class="headerlink" title="定制业务质量报表"></a>定制业务质量报表</h3><h4 id="Excel"><a href="#Excel" class="headerlink" title="Excel"></a>Excel</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">workbook = xlsxwriter.Workbook(&apos;test.xlsx&apos;)</span><br><span class="line">worksheet = workbook.add_worksheet()</span><br><span class="line">worksheet.set_column(&apos;A:A&apos;, 20)  # A列宽度20</span><br><span class="line"></span><br><span class="line">bold = workbook.add_format(&#123;&apos;bold&apos;: True&#125;)</span><br><span class="line"></span><br><span class="line">worsheet.write(&apos;A1&apos;, &apos;hallo&apos;, bold)</span><br><span class="line">worksheet.write(4, 0, &apos;=SUM(A3:A4)&apos;, &#123;&apos;strings_to_numbers&apos;: True&#125;)</span><br><span class="line"></span><br><span class="line">worksheet.insert_image(&apos;B2&apos;, &apos;some-image-path&apos;)</span><br><span class="line">workbook.close()</span><br></pre></td></tr></table></figure>
+<h4 id="rrdtool"><a href="#rrdtool" class="headerlink" title="rrdtool"></a>rrdtool</h4><ul>
+<li>round robin  处理定量数据及当前元素指针</li>
+<li><p>installation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install librrd-dev libpython3-dev</span><br><span class="line">sudo pip3 install -i https://mirrors.aliyun.com/pypi/simple/ rrdtool</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>create</p>
+</li>
+<li>update</li>
+<li>graph</li>
+<li>fetch</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %load /home/phil/rrdtool/create.py</span></span><br><span class="line"><span class="comment">#!/uar/bin/python3.5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> rrdtool</span><br><span class="line"></span><br><span class="line"><span class="comment"># create</span></span><br><span class="line">cur_time = str(int(time.time()))</span><br><span class="line">rrd = rrdtool.create(<span class="string">'Flow.rrd'</span>,</span><br><span class="line">                     <span class="string">'--step'</span>, <span class="string">'300'</span>,  <span class="comment"># 写频率</span></span><br><span class="line">                     <span class="string">'--start'</span>, cur_time,</span><br><span class="line">                     <span class="comment"># COUNTER 递增， 600心跳值（若600没有收到值，UNKNOWN代替），最大值U表示不确定</span></span><br><span class="line">                     <span class="string">'DS:eth0_in:COUNTER:600:0:U'</span>,</span><br><span class="line">                     <span class="string">'DS:eth0_out:COUNTER:600:0:U'</span>,</span><br><span class="line">                     <span class="comment"># [RRA:[AVERAGE, MAX, MIN]:xff:steps:rows]</span></span><br><span class="line">                     <span class="comment"># xff定义为0.5表示一个CDP中的PDP如超一半为UNKNOWM，则该CDP标为UNKNOWM</span></span><br><span class="line">                     <span class="string">'RRA:AVERAGE:0.5:1:600'</span>,</span><br><span class="line">                     <span class="string">'RRA:AVERAGE:0.5:6:700'</span>,</span><br><span class="line">                     <span class="string">'RRA:AVERAGE:0.5:24:775'</span>,</span><br><span class="line">                     <span class="string">'RRA:AVERAGE:0.5:288:797'</span>,</span><br><span class="line">                     <span class="string">'RRA:MAX:0.5:1:600'</span>,</span><br><span class="line">                     <span class="string">'RRA:MAX:0.5:6:700'</span>,</span><br><span class="line">                     <span class="string">'RRA:MAX:0.5:24:775'</span>,</span><br><span class="line">                     <span class="string">'RRA:MAX:0.5:444:797'</span>,</span><br><span class="line">                     <span class="string">'RRA:MIN:0.5:1:600'</span>,</span><br><span class="line">                     <span class="string">'RRA:MIN:0.5:6:700'</span>,</span><br><span class="line">                     <span class="string">'RRA:MIN:0.5:24:775'</span>,</span><br><span class="line">                     <span class="string">'RRA:MIN:0.5:444:797'</span>)</span><br><span class="line"><span class="keyword">if</span> rrd:</span><br><span class="line">    print(rrdtool.error())</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %load /home/phil/rrdtool/update.py</span></span><br><span class="line"><span class="comment">#!/uar/bin/python3.5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> rrdtool</span><br><span class="line"><span class="keyword">import</span> psutil</span><br><span class="line"></span><br><span class="line"><span class="comment"># update</span></span><br><span class="line">total_input_traffic = psutil.net_io_counters()[<span class="number">1</span>]</span><br><span class="line">total_output_traffic = psutil.net_io_counters()[<span class="number">0</span>]</span><br><span class="line">starttime = int(time.time())</span><br><span class="line">update = rrdtool.updatev(<span class="string">'Flow.rrd'</span>, <span class="string">'%s:%s:%s'</span> %</span><br><span class="line">                        (str(starttime),</span><br><span class="line">                        str(total_input_traffic),</span><br><span class="line">                        str(total_output_traffic)))</span><br><span class="line">print(update)  <span class="comment"># 返回&#123;'return_value': 0L&#125; 则更新成功</span></span><br></pre></td></tr></table></figure>
+<p><code>5  *    * * *   phil    /usr/bin/python3.5 /home/phil/rrdtool/update.py &gt; /dev/null 2&gt;&amp;1</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># %load /home/phil/rrdtool/graph.py</span></span><br><span class="line"><span class="comment">#!/uar/bin/python3.5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> rrdtool</span><br><span class="line"></span><br><span class="line">title = <span class="string">"Server network traffic flow ("</span> + \</span><br><span class="line">        time.strftime(<span class="string">'%Y-%m-%d'</span>, time.localtime(time.time())) + <span class="string">")"</span></span><br><span class="line">rrdtool.graph(<span class="string">"Flow.png"</span>,</span><br><span class="line">              <span class="string">"--start"</span>, <span class="string">"-1d"</span>,</span><br><span class="line">              <span class="string">"--vertical-label=Bytes/s"</span>,</span><br><span class="line">              <span class="string">"--x-grid"</span>, <span class="string">"MINUTE:12:HOUR:1:HOUR:1:0:%H"</span>,</span><br><span class="line">              <span class="comment"># MINUTE:12 每12分钟一根次要格线</span></span><br><span class="line">              <span class="comment"># HOUR:1 每1小时一根主要格线</span></span><br><span class="line">              <span class="comment"># HOUR:1 1小时输出一个label</span></span><br><span class="line">              <span class="comment"># 0:%H 0表示数字对齐格线， %H表示标签以小时显示</span></span><br><span class="line">              <span class="string">"--width"</span>, <span class="string">"650"</span>,</span><br><span class="line">              <span class="string">"--height"</span>, <span class="string">"230"</span>,</span><br><span class="line">              <span class="string">"--title"</span>, title,</span><br><span class="line">              <span class="string">"DEF:inoctets=Flow.rrd:eth0_in:AVERAGE"</span>,  <span class="comment"># 数据源DS, CF</span></span><br><span class="line">              <span class="string">"DEF:outoctets=Flow.rrd:eth0_out:AVERAGE"</span>,</span><br><span class="line">              <span class="string">"CDEF:total=inoctets,outoctets,+"</span>,</span><br><span class="line">              <span class="string">"LINE1:total#FF8833:Total traffic"</span>,  <span class="comment"># 线条方式</span></span><br><span class="line">              <span class="string">"AREA:inoctets#00FF00:In traffic"</span>,  <span class="comment"># 面积方式</span></span><br><span class="line">              <span class="string">"LINE1:outoctets#0000FF:Out traffic"</span>,</span><br><span class="line">              <span class="string">"HRULE:6144#FF0000:Alarm value\\r"</span>,  <span class="comment"># 水平线， 阀值6.1k</span></span><br><span class="line">              <span class="string">"CDEF:inbits=inoctets,8,*"</span>,  <span class="comment"># *8， 换算成bit</span></span><br><span class="line">              <span class="string">"CDEF:outbits=outoctets,8,*"</span>,</span><br><span class="line">              <span class="string">"COMMENT:\\r"</span>,  <span class="comment"># 换行符</span></span><br><span class="line">              <span class="string">"COMMENT:\\r"</span>,</span><br><span class="line">              <span class="string">"GPRINT:inbits:AVERAGE:Avg In traffic\: %6.2lf %Sbps"</span>,</span><br><span class="line">              <span class="string">"COMMENT:  "</span>,</span><br><span class="line">              <span class="string">"GPRINT:inbits:MAX:Max In traffic\: %6.2lf %Sbps"</span>,</span><br><span class="line">              <span class="string">"COMMENT:  "</span>,</span><br><span class="line">              <span class="string">"GPRINT:inbits:MIN:Min In traffic\: %6.2lf %Sbps\\r"</span>,</span><br><span class="line">              <span class="string">"COMMENT:  "</span>,</span><br><span class="line">              <span class="string">"GPRINT:inbits:AVERAGE:Avg In traffic\: %6.2lf %Sbps"</span>,</span><br><span class="line">              <span class="string">"COMMENT:  "</span>,</span><br><span class="line">              <span class="string">"GPRINT:inbits:MAX:Max In traffic\: %6.2lf %Sbps"</span>,</span><br><span class="line">              <span class="string">"COMMENT:  "</span>,</span><br><span class="line">              <span class="string">"GPRINT:inbits:MIN:Min In traffic\: %6.2lf %Sbps\\r"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="scapy"><a href="#scapy" class="headerlink" title="scapy"></a>scapy</h4><ul>
+<li><p>installation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tcpdump</span><br><span class="line">                     graphviz</span><br><span class="line">                     imagemagick</span><br><span class="line">                     python-matplotlib</span><br><span class="line">                     python-cryptography</span><br><span class="line">                     python-pyx</span><br><span class="line">sudo pip3 install -i https://mirrors.aliyun.com/pypi/simple cryptography scapy</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>usage</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line">import time</span><br><span class="line">import subprocess</span><br><span class="line">import warnings</span><br><span class="line">import logging</span><br><span class="line">from scapy.all import traceroute</span><br><span class="line"></span><br><span class="line">warnings.filterwarnings(&quot;ignore&quot;, category=DeprecationWarning)  # 屏蔽无用警告信息</span><br><span class="line">logging.getLogger(&quot;scsapy.runtime&quot;).setLevel(logging.ERROR)  # 屏蔽模块IPv6多余警告</span><br><span class="line"></span><br><span class="line">domain = &apos;www.baidu.com&apos;</span><br><span class="line">dport = [80]</span><br><span class="line"></span><br><span class="line">res, unans = traceroute(domain, dport=dport, retry=-2)</span><br><span class="line">res.graph(target=&quot;&gt; test.svg&quot;)</span><br><span class="line">time.sleep(1)</span><br><span class="line">subprocess.Popen(&quot;/usr/bin/convert test.svg test.png&quot;, shell=True)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>todo: </p>
+<pre><code>PermissionError: [Errno 1] Operation not permitted
+No module named &apos;traceroute&apos;
+</code></pre></blockquote>
+</li>
+</ul>
+<h3 id="系统安全"><a href="#系统安全" class="headerlink" title="系统安全"></a>系统安全</h3><h4 id="ClamAV"><a href="#ClamAV" class="headerlink" title="ClamAV"></a>ClamAV</h4><ul>
+<li>pyClamd<ul>
+<li>ClamdNetworkSocket()<ul>
+<li><strong>init</strong>()</li>
+<li>contscan_file()</li>
+<li>multiscan_file()</li>
+<li>scan_file()  # 发现病毒将终止</li>
+<li>shutdown()</li>
+<li>stats()</li>
+<li>reload()</li>
+<li>EICAR()  # 生成具有病毒特征的字符串</li>
+</ul>
+</li>
+<li>ClamdUnixSocket()</li>
+</ul>
+</li>
+</ul>
+<h4 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h4><ul>
+<li>PortScanner()<ul>
+<li>scan()</li>
+<li>command_line()  # 返回nmap命令行</li>
+<li>scaninfo()</li>
+<li>all_hosts()</li>
+</ul>
+</li>
+<li>PortScannerHostDict()<ul>
+<li>hostname()</li>
+<li>state()</li>
+<li>all_protocals()</li>
+<li>all_tcp()</li>
+<li>tcp()</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python运维/" rel="tag"># Python运维</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/01/Scala集合技术手册/" rel="next" title="Scala集合技术手册">
+                <i class="fa fa-chevron-left"></i> Scala集合技术手册
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Phil Han</p>
+              <p class="site-description motion-element" itemprop="description">Data Processor</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-基础篇"><span class="nav-number">1.</span> <span class="nav-text">第一部分 基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统基础信息模块"><span class="nav-number">1.1.</span> <span class="nav-text">系统基础信息模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#psutil"><span class="nav-number">1.1.1.</span> <span class="nav-text">psutil</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#系统信息"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">系统信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进程管理"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">进程管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPy"><span class="nav-number">1.1.2.</span> <span class="nav-text">IPy</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IP地址、网段"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">IP地址、网段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多网络计算"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">多网络计算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dnspython"><span class="nav-number">1.1.3.</span> <span class="nav-text">dnspython</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务服务监控"><span class="nav-number">1.2.</span> <span class="nav-text">业务服务监控</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件内容差异对比"><span class="nav-number">1.2.1.</span> <span class="nav-text">文件内容差异对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目录差异对比"><span class="nav-number">1.2.2.</span> <span class="nav-text">目录差异对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#smtplib"><span class="nav-number">1.2.3.</span> <span class="nav-text">smtplib</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web服务质量"><span class="nav-number">1.2.4.</span> <span class="nav-text">Web服务质量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定制业务质量报表"><span class="nav-number">1.3.</span> <span class="nav-text">定制业务质量报表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Excel"><span class="nav-number">1.3.1.</span> <span class="nav-text">Excel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rrdtool"><span class="nav-number">1.3.2.</span> <span class="nav-text">rrdtool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scapy"><span class="nav-number">1.3.3.</span> <span class="nav-text">scapy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统安全"><span class="nav-number">1.4.</span> <span class="nav-text">系统安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ClamAV"><span class="nav-number">1.4.1.</span> <span class="nav-text">ClamAV</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nmap"><span class="nav-number">1.4.2.</span> <span class="nav-text">nmap</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Phil Han</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

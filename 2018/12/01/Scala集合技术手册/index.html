@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Scala Collection," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第2章 Traversable Traversable immutable.Traversable mutable.Traversable 单线程  非线程安全      初始化Traversable对象 不能直接实例化trait，通过具体实现类的伴生对象： .toTraversable 直接赋值给Traversable类型的变量 直接得到Traversable的实例 Traversable的伴生">
+<meta name="keywords" content="Scala Collection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala集合技术手册">
+<meta property="og:url" content="https://olddream330.github.io/2018/12/01/Scala集合技术手册/index.html">
+<meta property="og:site_name" content="Phil Han&#39;s Notebook">
+<meta property="og:description" content="第2章 Traversable Traversable immutable.Traversable mutable.Traversable 单线程  非线程安全      初始化Traversable对象 不能直接实例化trait，通过具体实现类的伴生对象： .toTraversable 直接赋值给Traversable类型的变量 直接得到Traversable的实例 Traversable的伴生">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-30T15:16:17.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala集合技术手册">
+<meta name="twitter:description" content="第2章 Traversable Traversable immutable.Traversable mutable.Traversable 单线程  非线程安全      初始化Traversable对象 不能直接实例化trait，通过具体实现类的伴生对象： .toTraversable 直接赋值给Traversable类型的变量 直接得到Traversable的实例 Traversable的伴生">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://olddream330.github.io/2018/12/01/Scala集合技术手册/"/>
+
+
+
+
+
+  <title>Scala集合技术手册 | Phil Han's Notebook</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Phil Han's Notebook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/12/01/Scala集合技术手册/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Phil Han">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Phil Han's Notebook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Scala集合技术手册</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-01T23:45:04+08:00">
+                2018-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第2章-Traversable"><a href="#第2章-Traversable" class="headerlink" title="第2章 Traversable"></a>第2章 Traversable</h2><ul>
+<li>Traversable<ul>
+<li>immutable.Traversable</li>
+<li>mutable.Traversable<ul>
+<li>单线程  非线程安全</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="初始化Traversable对象"><a href="#初始化Traversable对象" class="headerlink" title="初始化Traversable对象"></a>初始化Traversable对象</h4><ul>
+<li>不能直接实例化trait，通过具体实现类的伴生对象： .toTraversable</li>
+<li>直接赋值给Traversable类型的变量</li>
+<li>直接得到Traversable的实例<ul>
+<li>Traversable的伴生对象的apply</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val s = Traversable(1,2,3)</span><br></pre></td></tr></table></figure>
+<h4 id="集合的静态类型和类型擦除"><a href="#集合的静态类型和类型擦除" class="headerlink" title="集合的静态类型和类型擦除"></a>集合的静态类型和类型擦除</h4><ul>
+<li>Scala的类型参数信息在编译时被擦除</li>
+<li>通过scala.reflect.runtime.universe.typeTag保存编译时的类型信息</li>
+</ul>
+<h4 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h4><ul>
+<li>higher-order function 高阶函数<ul>
+<li>一个或多个函数作为参数</li>
+<li>返回一个函数</li>
+</ul>
+</li>
+<li>foreach不返回值</li>
+<li>语法糖<ul>
+<li>零参数的方法省略括号</li>
+<li>中缀表示法</li>
+<li>后缀表示法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val s = Traversable(1,2,3)</span><br><span class="line">s.foreach(x=&gt;x*x)</span><br><span class="line">s.foreach(x=&gt;println(x*x))</span><br></pre></td></tr></table></figure>
+<h4 id="flatten"><a href="#flatten" class="headerlink" title="flatten"></a>flatten</h4><h6 id="所包含的元素类型不一致仍可平展"><a href="#所包含的元素类型不一致仍可平展" class="headerlink" title="所包含的元素类型不一致仍可平展"></a>所包含的元素类型不一致仍可平展</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val s3 = Traversable(Traversable(1,2,3),Traversable(2L,3L,4L),Traversable(5:Short,6:Short,7:Short))</span><br><span class="line">val s4 = s3.flatten</span><br></pre></td></tr></table></figure>
+<h6 id="普通类型、集合类型不可平展"><a href="#普通类型、集合类型不可平展" class="headerlink" title="普通类型、集合类型不可平展"></a>普通类型、集合类型不可平展</h6><h6 id="只作浅层平展"><a href="#只作浅层平展" class="headerlink" title="只作浅层平展"></a>只作浅层平展</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val s5 = Traversable( Traversable( 1, 2, 3), Traversable( 2, 3, 4), Traversable( Traversable( 5, 6, 7), Traversable( 8, 9, 10)))</span><br><span class="line">val s6 = s5. flatten</span><br></pre></td></tr></table></figure>
+<h6 id="可将Traversable-Option-A-平展为Traversable-A"><a href="#可将Traversable-Option-A-平展为Traversable-A" class="headerlink" title="可将Traversable[Option[A]]平展为Traversable[A]"></a>可将Traversable[Option[A]]平展为Traversable[A]</h6><h4 id="transpose"><a href="#transpose" class="headerlink" title="transpose"></a>transpose</h4><ul>
+<li>元素长度不一致抛出异常</li>
+</ul>
+<h4 id="unzip、unzip3"><a href="#unzip、unzip3" class="headerlink" title="unzip、unzip3"></a>unzip、unzip3</h4><ul>
+<li>接受隐式参数asPair</li>
+</ul>
+<h4 id=""><a href="#" class="headerlink" title="++"></a>++</h4><ul>
+<li>mangled技术，将方法、类编码为$name<br>  <code>=, $eq</code></li>
+<li>++ 类型与左边一致</li>
+<li>++: 类型与右边一致</li>
+</ul>
+<h4 id="mutable-Traversable-concat"><a href="#mutable-Traversable-concat" class="headerlink" title="mutable.Traversable.concat"></a>mutable.Traversable.concat</h4><h4 id="PartialFunction"><a href="#PartialFunction" class="headerlink" title="PartialFunction"></a>PartialFunction</h4><ul>
+<li>collect</li>
+<li>collectFirst</li>
+</ul>
+<h4 id="map、flatMap"><a href="#map、flatMap" class="headerlink" title="map、flatMap"></a>map、flatMap</h4><h4 id="scan-计算阶乘-返回中间结果"><a href="#scan-计算阶乘-返回中间结果" class="headerlink" title="scan 计算阶乘   返回中间结果"></a>scan 计算阶乘   返回中间结果</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// scan is scanLeft</span><br><span class="line">val t = Traversable(1 to 5 :_*)</span><br><span class="line">val result1 = t.scan(1)(_*_)</span><br><span class="line">val result2 = t.scanRight(1)(_*_)</span><br></pre></td></tr></table></figure>
+<h4 id="fold-返回值"><a href="#fold-返回值" class="headerlink" title="fold  返回值"></a>fold  返回值</h4><ul>
+<li>foldLeft   /:</li>
+<li>foldRight   :\</li>
+</ul>
+<h4 id="判断集合非空-isEmpty-nonEmpty-size-hasDefiniteSize"><a href="#判断集合非空-isEmpty-nonEmpty-size-hasDefiniteSize" class="headerlink" title="判断集合非空  isEmpty   nonEmpty   size   hasDefiniteSize"></a>判断集合非空  isEmpty   nonEmpty   size   hasDefiniteSize</h4><ul>
+<li>isEmpty 不推荐</li>
+<li>size   不推荐</li>
+<li>nonEmpty 推荐</li>
+<li>hasDefiniteSize<ul>
+<li>对strict集合：true</li>
+<li>对Stream：<br>到终点    true<br>未到终点   false</li>
+</ul>
+</li>
+</ul>
+<h4 id="得到特定元素"><a href="#得到特定元素" class="headerlink" title="得到特定元素"></a>得到特定元素</h4><ul>
+<li>head、last    空集合抛出异常</li>
+<li>headOption、lastOption</li>
+<li>find</li>
+</ul>
+<h4 id="尾部"><a href="#尾部" class="headerlink" title="尾部"></a>尾部</h4><ul>
+<li>tail</li>
+<li>tails   生成Iterator</li>
+<li>init   去除尾部</li>
+<li>inits</li>
+</ul>
+<h4 id="选择一段子集"><a href="#选择一段子集" class="headerlink" title="选择一段子集"></a>选择一段子集</h4><ul>
+<li>slice[from,until)  左闭右开</li>
+</ul>
+<h4 id="选择前N个元素"><a href="#选择前N个元素" class="headerlink" title="选择前N个元素"></a>选择前N个元素</h4><ul>
+<li>take(n) == slice(0,n)  元素数量小于n，返回整个集合</li>
+<li>takeWhile</li>
+</ul>
+<h4 id="跳过前N个元素"><a href="#跳过前N个元素" class="headerlink" title="跳过前N个元素"></a>跳过前N个元素</h4><ul>
+<li>drop<ul>
+<li>小于N，返回空集合</li>
+<li>N &lt;= 0, 返回整个集合</li>
+</ul>
+</li>
+<li>dropWhile</li>
+</ul>
+<h4 id="条件筛选"><a href="#条件筛选" class="headerlink" title="条件筛选"></a>条件筛选</h4><ul>
+<li>filter、filterNot</li>
+<li>withFilter 返回FilterMonadic<ul>
+<li>Monad 计算序列  管道式</li>
+</ul>
+</li>
+</ul>
+<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><ul>
+<li>splitAt == (c.take(n), c.drop(n))</li>
+<li>span   == (c.takeWhile(p), c.dropWhile(p))</li>
+<li>partition == (true, false)</li>
+<li>groupBy</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val t = Traversable(1 to 10: _*)</span><br><span class="line">println(t.splitAt(5))</span><br><span class="line">println(t.span(_ &lt; 6))</span><br><span class="line">println(t.partition(_ % 2 == 0))</span><br><span class="line">println(t.groupBy(_ % 3))</span><br></pre></td></tr></table></figure>
+<h4 id="检查元素-forall、exist"><a href="#检查元素-forall、exist" class="headerlink" title="检查元素  forall、exist"></a>检查元素  forall、exist</h4><h4 id="统计满足断言的元素个数"><a href="#统计满足断言的元素个数" class="headerlink" title="统计满足断言的元素个数"></a>统计满足断言的元素个数</h4><ul>
+<li>count</li>
+<li>filter  额外生成Traversable对象</li>
+</ul>
+<h4 id="规约-reduce-不需要初始值"><a href="#规约-reduce-不需要初始值" class="headerlink" title="规约 reduce  不需要初始值"></a>规约 reduce  不需要初始值</h4><h4 id="聚合-sum、product、min、max、aggregate、maxBy、minBy"><a href="#聚合-sum、product、min、max、aggregate、maxBy、minBy" class="headerlink" title="聚合 sum、product、min、max、aggregate、maxBy、minBy"></a>聚合 sum、product、min、max、aggregate、maxBy、minBy</h4><ul>
+<li>aggregate不要求返回结果的类型是集合元素类型的父类</li>
+</ul>
+<h4 id="基于Traversable对象生成字符串"><a href="#基于Traversable对象生成字符串" class="headerlink" title="基于Traversable对象生成字符串"></a>基于Traversable对象生成字符串</h4><ul>
+<li>mkString  利用addString实现</li>
+<li>addString 分隔符</li>
+<li>stringPrefix 返回对象的实际类型的名称  总是返回”List”</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val t = Traversable(1 to 5: _*)</span><br><span class="line">println(t.mkString(&quot;^&quot;,&quot;,&quot;,&quot;&amp;&quot;))</span><br><span class="line">// addString</span><br></pre></td></tr></table></figure>
+<h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><ul>
+<li>toArray</li>
+<li>toParArray</li>
+<li>toBuffer</li>
+<li>toIndexedSeq</li>
+<li>toIterable  返回scala.collection.Iterable  toSeq == toStream</li>
+<li>toIterator  返回scala.collection.Iterator  实际调用toStream.iterator</li>
+<li>toList</li>
+<li>toSeq</li>
+<li>toSet</li>
+<li>toStream</li>
+<li>toVector</li>
+<li>toTraversable  返回原集合</li>
+<li>toMap  要求Tuple2</li>
+<li>to</li>
+</ul>
+<h4 id="复制元素到一个数组-copyToArray-copyToBuffer"><a href="#复制元素到一个数组-copyToArray-copyToBuffer" class="headerlink" title="复制元素到一个数组  copyToArray  copyToBuffer"></a>复制元素到一个数组  copyToArray  copyToBuffer</h4><h4 id="返回一个Traversable对象的视图"><a href="#返回一个Traversable对象的视图" class="headerlink" title="返回一个Traversable对象的视图"></a>返回一个Traversable对象的视图</h4><ul>
+<li>view[from:until)  返回non-strict,调用force返回strict</li>
+<li>slice 立即产生新的集合</li>
+</ul>
+<h4 id="得到Traversable对象的底层实现-repr"><a href="#得到Traversable对象的底层实现-repr" class="headerlink" title="得到Traversable对象的底层实现 repr"></a>得到Traversable对象的底层实现 repr</h4><h4 id="使用一个相同的元素填充"><a href="#使用一个相同的元素填充" class="headerlink" title="使用一个相同的元素填充"></a>使用一个相同的元素填充</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val t = Traversable.fill(5,2)(&quot;A&quot;)</span><br><span class="line">val t1 = Traversable.iterate(1, 5)(_ * 10)</span><br></pre></td></tr></table></figure>
+<h4 id="range-start-end-step"><a href="#range-start-end-step" class="headerlink" title="range(start, end, step)"></a>range(start, end, step)</h4><h4 id="tabulate"><a href="#tabulate" class="headerlink" title="tabulate"></a>tabulate</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val t = Traversable.tabulate(5,2)(_ * 10 + _)</span><br></pre></td></tr></table></figure>
+<h4 id="生成空Traversable对象"><a href="#生成空Traversable对象" class="headerlink" title="生成空Traversable对象"></a>生成空Traversable对象</h4><ul>
+<li>Traversable.empty[Int]</li>
+<li>Traversable<code>[Int]()</code></li>
+<li>Nil</li>
+</ul>
+<h4 id="串行seq-并行par"><a href="#串行seq-并行par" class="headerlink" title="串行seq    并行par"></a>串行seq    并行par</h4><h2 id="第3章-Iterable"><a href="#第3章-Iterable" class="headerlink" title="第3章 Iterable"></a>第3章 Iterable</h2><ul>
+<li>foreach  被动迭代</li>
+<li>next    主动迭代</li>
+</ul>
+<h4 id="Iterable-对象分组"><a href="#Iterable-对象分组" class="headerlink" title="Iterable 对象分组"></a>Iterable 对象分组</h4><ul>
+<li>grouped 元素数量</li>
+<li>groupBy 计算的键值</li>
+</ul>
+<h4 id="滑动窗口（大小固定）分组"><a href="#滑动窗口（大小固定）分组" class="headerlink" title="滑动窗口（大小固定）分组"></a>滑动窗口（大小固定）分组</h4><ul>
+<li>sliding(size, step //默认为1)</li>
+</ul>
+<h4 id="zip-生成Tuple2-以较短的集合为准-无次序的集合每次运行可能生成不一样的结果"><a href="#zip-生成Tuple2-以较短的集合为准-无次序的集合每次运行可能生成不一样的结果" class="headerlink" title="zip   生成Tuple2   以较短的集合为准   无次序的集合每次运行可能生成不一样的结果"></a>zip   生成Tuple2   以较短的集合为准   无次序的集合每次运行可能生成不一样的结果</h4><h4 id="zipAll-以较长的集合为准"><a href="#zipAll-以较长的集合为准" class="headerlink" title="zipAll 以较长的集合为准"></a>zipAll 以较长的集合为准</h4><h4 id="zipWithIndex"><a href="#zipWithIndex" class="headerlink" title="zipWithIndex"></a>zipWithIndex</h4><ul>
+<li>索引值作为Tuple2的第二个值</li>
+<li>.view 延迟执行</li>
+</ul>
+<h4 id="检查两个Iterables包含相同元素-sameElements"><a href="#检查两个Iterables包含相同元素-sameElements" class="headerlink" title="检查两个Iterables包含相同元素  sameElements"></a>检查两个Iterables包含相同元素  sameElements</h4><h4 id="takeRight-两个指针遍历"><a href="#takeRight-两个指针遍历" class="headerlink" title="takeRight  两个指针遍历"></a>takeRight  两个指针遍历</h4><h4 id="dropRight"><a href="#dropRight" class="headerlink" title="dropRight"></a>dropRight</h4><h2 id="第4章-Seq"><a href="#第4章-Seq" class="headerlink" title="第4章 Seq"></a>第4章 Seq</h2><ul>
+<li>一定顺序  可迭代  可重复</li>
+<li>每个元素对应一个索引值</li>
+<li>偏函数</li>
+<li>IndexedSeq 快速随机访问</li>
+<li>LinearSeq  快速访问head、tail</li>
+</ul>
+<h4 id="indices"><a href="#indices" class="headerlink" title="indices"></a>indices</h4><ul>
+<li>0 until length</li>
+</ul>
+<h4 id="size、length、lengthCompare"><a href="#size、length、lengthCompare" class="headerlink" title="size、length、lengthCompare"></a>size、length、lengthCompare</h4><ul>
+<li>size  Traversable的方法</li>
+<li>length  Seq的方法</li>
+<li>.lengthCompare(len)<ul>
+<li>序列长度等于len，返回0</li>
+<li>序列长度小于len，返回seq.length - len</li>
+<li>序列长度大于len，返回1</li>
+<li>immutable.List长度等于len，总是返回-1</li>
+</ul>
+</li>
+</ul>
+<h4 id="Seq-index-or-Seq-apply-index"><a href="#Seq-index-or-Seq-apply-index" class="headerlink" title="Seq(index)  or  Seq.apply(index)"></a>Seq(index)  or  Seq.apply(index)</h4><h4 id="indexOf-lastIndexOf"><a href="#indexOf-lastIndexOf" class="headerlink" title="indexOf   lastIndexOf"></a>indexOf   lastIndexOf</h4><h4 id="indexWhere-lastIndexWhere"><a href="#indexWhere-lastIndexWhere" class="headerlink" title="indexWhere  lastIndexWhere"></a>indexWhere  lastIndexWhere</h4><ul>
+<li>indexWhere 返回索引值</li>
+<li>find     返回元素</li>
+</ul>
+<h4 id="indexOfSlice-lastIndexOfSlice-搜索集合，返回索引值"><a href="#indexOfSlice-lastIndexOfSlice-搜索集合，返回索引值" class="headerlink" title="indexOfSlice  lastIndexOfSlice  搜索集合，返回索引值"></a>indexOfSlice  lastIndexOfSlice  搜索集合，返回索引值</h4><h4 id="segmentLength-prefixLength-返回长度值"><a href="#segmentLength-prefixLength-返回长度值" class="headerlink" title="segmentLength  prefixLength   返回长度值"></a>segmentLength  prefixLength   返回长度值</h4><h4 id="增加元素"><a href="#增加元素" class="headerlink" title="增加元素"></a>增加元素</h4><ul>
+<li>+:   序列头部</li>
+<li>:+   序列尾部</li>
+<li>padTo(len, elem)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val t = Seq(1 to 5: _*)</span><br><span class="line">println(t :+ 3)</span><br><span class="line">println(3 +: t)</span><br><span class="line">println(t.padTo(8,6))</span><br></pre></td></tr></table></figure>
+<h4 id="替换元素-patch-from-要替换的位置-that-要替换后的元素-replaced-要替换的元素数量"><a href="#替换元素-patch-from-要替换的位置-that-要替换后的元素-replaced-要替换的元素数量" class="headerlink" title="替换元素 patch(from 要替换的位置, that 要替换后的元素, replaced 要替换的元素数量)"></a>替换元素 patch(from 要替换的位置, that 要替换后的元素, replaced 要替换的元素数量)</h4><h4 id="更新元素-update"><a href="#更新元素-update" class="headerlink" title="更新元素  update"></a>更新元素  update</h4><ul>
+<li>immutable.Seq.updated  生成新序列</li>
+<li>mutable.Seq.update  原地更改</li>
+</ul>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><ul>
+<li>sorted  math.Ordering  将元素复制到数组，调用java.util.Arrays.sort,将数组复制到新集合</li>
+<li>sortBy</li>
+<li>sortWith</li>
+</ul>
+<h4 id="反转"><a href="#反转" class="headerlink" title="反转"></a>反转</h4><ul>
+<li>reverse 对于List，通过逐个获取元素重新生成一个列表</li>
+<li>reverseIterator  返回反转的迭代器</li>
+<li>reverseMap  比seq.reverse.map更有效，在一次遍历中实现反转和映射</li>
+</ul>
+<h4 id="序列是否包含某个前缀或后缀"><a href="#序列是否包含某个前缀或后缀" class="headerlink" title="序列是否包含某个前缀或后缀"></a>序列是否包含某个前缀或后缀</h4><ul>
+<li>startsWith</li>
+<li>endsWith</li>
+</ul>
+<h4 id="序列是否包含某子序列"><a href="#序列是否包含某子序列" class="headerlink" title="序列是否包含某子序列"></a>序列是否包含某子序列</h4><ul>
+<li>contains  元素</li>
+<li>containsSlice  子序列</li>
+</ul>
+<h4 id="检查两个序列对应的元素是否满足断言"><a href="#检查两个序列对应的元素是否满足断言" class="headerlink" title="检查两个序列对应的元素是否满足断言"></a>检查两个序列对应的元素是否满足断言</h4><ul>
+<li>corresponds</li>
+</ul>
+<h4 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作</h4><ul>
+<li>intersect</li>
+<li>union</li>
+<li>diff<ul>
+<li>Seq.fill(times)(elems)</li>
+</ul>
+</li>
+</ul>
+<h4 id="去掉重复的元素"><a href="#去掉重复的元素" class="headerlink" title="去掉重复的元素"></a>去掉重复的元素</h4><ul>
+<li>distinct</li>
+</ul>
+<h4 id="得到元素的各种排列"><a href="#得到元素的各种排列" class="headerlink" title="得到元素的各种排列"></a>得到元素的各种排列</h4><ul>
+<li>permutations</li>
+</ul>
+<h4 id="得到序列的指定长度的元素的组合"><a href="#得到序列的指定长度的元素的组合" class="headerlink" title="得到序列的指定长度的元素的组合"></a>得到序列的指定长度的元素的组合</h4><ul>
+<li>combinations(length)<ul>
+<li>length == Seq.size: 返回只含一个集合的迭代器</li>
+<li>length &lt; 0 or length &gt; Seq.size: 返回空的迭代器</li>
+<li>length == 0: 返回只含空集合的迭代器</li>
+</ul>
+</li>
+</ul>
+<h4 id="将序列进行转换"><a href="#将序列进行转换" class="headerlink" title="将序列进行转换"></a>将序列进行转换</h4><ul>
+<li>mutable.Seq.transform<ul>
+<li>transform 原地转换， map返回新的序列</li>
+<li>transform后的元素类型和原来一致， map有可能不同</li>
+</ul>
+</li>
+</ul>
+<h4 id="偏函数的应用"><a href="#偏函数的应用" class="headerlink" title="偏函数的应用"></a>偏函数的应用</h4><ul>
+<li>addThen</li>
+<li>applyOrElse</li>
+<li>orElse</li>
+<li>lift  将偏函数转换成一个普通函数，也就是返回一个Option[A]类型的函数</li>
+<li>runWith</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">val s1 = Seq(1 to 5: _*)</span><br><span class="line">val s2 = Seq(6 to 10: _*)</span><br><span class="line">val s3: PartialFunction[Int, String] = &#123;</span><br><span class="line">    case x if x &gt; 0 =&gt; &quot;hello&quot; + x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">val pf = s1.asInstanceOf[PartialFunction[Int, Int]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// andThen 先应用序列</span><br><span class="line">println(s1.andThen(s2)(2))  // s2(s1(2))</span><br><span class="line">println(s1.andThen(s3)(2))  // s3(s1(2))</span><br><span class="line">// compose 先调用函数</span><br><span class="line">println(s1.compose((x: String) =&gt; x.length - 1)(&quot;hello&quot;))</span><br><span class="line"></span><br><span class="line">println(s1.applyOrElse(2, (_: Int) =&gt; 2))</span><br><span class="line">println(s1.applyOrElse(10, (_: Int) =&gt; Int.MaxValue))</span><br><span class="line"></span><br><span class="line">println(s1.orElse(s2)(2))</span><br><span class="line">println(s1.orElse(s3)(8))</span><br><span class="line"></span><br><span class="line">println(s1.lift(2))</span><br><span class="line">println(s1.lift(8))</span><br><span class="line"></span><br><span class="line">println(s1.runWith(println)(2))</span><br><span class="line">println(s1.runWith(println)(8))</span><br></pre></td></tr></table></figure>
+<h4 id="IndexedSeq和LinearSeq"><a href="#IndexedSeq和LinearSeq" class="headerlink" title="IndexedSeq和LinearSeq"></a>IndexedSeq和LinearSeq</h4><ul>
+<li>IndexedSeq  索引序列<ul>
+<li>immutable.Vector</li>
+<li>immutable.NumericRange</li>
+<li>immutable.Range</li>
+<li>mutable.ArraySeq</li>
+<li>mutable.StringBuilder</li>
+<li>mutable.ArrayBuffer</li>
+<li>可以隐式转换成immutable.IndexedSeq[Char]的String类型</li>
+<li>可以隐式转换成mutable.IndexedSeq的数组类型Array</li>
+</ul>
+</li>
+<li>LinearSeq  线性序列<ul>
+<li>immutable.List</li>
+<li>immutable.Stream</li>
+<li>immutable.Queue</li>
+<li>immutable.Stack</li>
+<li>mutable.MutableList</li>
+<li>mutable.Queue</li>
+</ul>
+</li>
+</ul>
+<h4 id="Range和NumericRange"><a href="#Range和NumericRange" class="headerlink" title="Range和NumericRange"></a>Range和NumericRange</h4><ul>
+<li>Range  等差整数队列</li>
+<li>NumericRange  可以生成Int、BigInt、Short、Byte、Char、Long、Float、BigDecimal、Double类型的序列</li>
+</ul>
+<h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><ul>
+<li>每个非叶节点有32个子节点</li>
+<li>Vector的updated方法会生成一个新的Vector对象</li>
+</ul>
+<h2 id="第5章-Set"><a href="#第5章-Set" class="headerlink" title="第5章 Set"></a>第5章 Set</h2><h4 id="检查Set集合是否包含元素"><a href="#检查Set集合是否包含元素" class="headerlink" title="检查Set集合是否包含元素"></a>检查Set集合是否包含元素</h4><ul>
+<li>contains</li>
+<li>apply</li>
+<li>subsetOf  检查一个集合是否包含某个集合的子集合</li>
+</ul>
+<h4 id="增加一个元素或者一组元素到Set集合中"><a href="#增加一个元素或者一组元素到Set集合中" class="headerlink" title="增加一个元素或者一组元素到Set集合中"></a>增加一个元素或者一组元素到Set集合中</h4><ul>
+<li>+<ul>
+<li>向集合中增加一个元素，并返回新的集合，此时原集合不变</li>
+<li>可以增加1或多个元素</li>
+</ul>
+</li>
+<li>++<ul>
+<li>将一个集合中所有的元素都加入到Set集合中</li>
+<li>参数类型并不要求必须是Set类型</li>
+</ul>
+</li>
+<li>++:<ul>
+<li>将左边的集合添加到右边的Set集合</li>
+</ul>
+</li>
+<li>mutable.Set.+=<ul>
+<li>原地添加</li>
+<li><strong>(s += 4) eq s返回true</strong></li>
+</ul>
+</li>
+<li>mutable.Set.++=<ul>
+<li>原地添加</li>
+</ul>
+</li>
+<li>mutable.Set.add<ul>
+<li>原集合中包含这个元素，则返回false，否则返回true</li>
+</ul>
+</li>
+</ul>
+<h4 id="从Set集合中去掉一个元素或一组元素"><a href="#从Set集合中去掉一个元素或一组元素" class="headerlink" title="从Set集合中去掉一个元素或一组元素"></a>从Set集合中去掉一个元素或一组元素</h4><ul>
+<li>-<ul>
+<li>一次可以移除一个或者多个元素</li>
+<li>去掉一个集合中不存在的元素时不会报错，而且返回结果还是原来的集合</li>
+</ul>
+</li>
+<li><code>--</code><ul>
+<li>从原集合中去掉一个指定的集合所包含的元素，这组元素不一定是Set集合</li>
+</ul>
+</li>
+<li>mutable.Set.-=<ul>
+<li>原地删除</li>
+</ul>
+</li>
+<li>mutable.Set.–=<ul>
+<li>原地删除</li>
+</ul>
+</li>
+<li>mutable.Set.remove<ul>
+<li>这个元素存在于原集合，则返回true，否则返回false</li>
+</ul>
+</li>
+<li>mutable.Set.retain<ul>
+<li>移除集合中所有不满足断言的元素</li>
+</ul>
+</li>
+<li>mutable.Set.clear<ul>
+<li>清除集合中的所有元素</li>
+</ul>
+</li>
+</ul>
+<h4 id="二元Set集合运算"><a href="#二元Set集合运算" class="headerlink" title="二元Set集合运算"></a>二元Set集合运算</h4><ul>
+<li>&amp;</li>
+<li>intersect</li>
+<li>|</li>
+<li>union</li>
+<li>&amp;~</li>
+<li>diff<ul>
+<li>差集操作符的左右集合是有顺序的</li>
+</ul>
+</li>
+</ul>
+<h4 id="更新一个可变Set集合的元素"><a href="#更新一个可变Set集合的元素" class="headerlink" title="更新一个可变Set集合的元素"></a>更新一个可变Set集合的元素</h4><ul>
+<li>mutable.Set.update</li>
+</ul>
+<h4 id="克隆可变Set集合"><a href="#克隆可变Set集合" class="headerlink" title="克隆可变Set集合"></a>克隆可变Set集合</h4><ul>
+<li>mutable.Set.clone</li>
+</ul>
+<h4 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h4><ul>
+<li>collection.SortedSet<ul>
+<li>firstKey</li>
+<li>lastKey</li>
+<li>keySet</li>
+<li>默认实现结果是TreeSet</li>
+</ul>
+</li>
+<li>collection.BitSet<ul>
+<li>更有效的计算交、并、差集的方法，它可以使用位操作来实现</li>
+</ul>
+</li>
+<li>immutable.SortedSet</li>
+<li>immutable.BitSet</li>
+<li>immutable.TreeSet</li>
+<li>mutable.SortedSet<ul>
+<li>元素的增加、删除、更改后的结果都是按照顺序排列的</li>
+</ul>
+</li>
+<li>mutable.BitSet<ul>
+<li>原地位操作的方法：&amp;=、|=、&amp;~、^=</li>
+</ul>
+</li>
+<li>mutable.TreeSet</li>
+</ul>
+<h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><ul>
+<li>immutable.HashSet是以Hash Trie树的方式实现的</li>
+<li>Trie，又称前缀树或字典树，是一种有序树</li>
+<li>Vector的底层实现，它也是以分支因子为32的Trie树实现的</li>
+<li>子类<ul>
+<li>EmptyHashSet</li>
+<li>HashSet1</li>
+<li>HashTrieSet</li>
+<li>HashSetCollision1<ul>
+<li>只有在哈希冲突的时候才会生成</li>
+<li>以链表的方式（ListSet）存放哈希值重复的对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>树的每一个节点最多只能容纳32个元素或者子节点</li>
+</ul>
+<h4 id="ListSet"><a href="#ListSet" class="headerlink" title="ListSet"></a>ListSet</h4><ul>
+<li>通过ListSetBuilder生成集合，它主要包含两个数据结构：ListBuffer和HashSet</li>
+<li>总是以最后加入的元素作为头指针head</li>
+</ul>
+<h4 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h4><ul>
+<li>以hashtable数据结构存储数据，同时元素的顺序保持插入时的顺序，它是可变的Set集合</li>
+</ul>
+<h2 id="第6章-Map"><a href="#第6章-Map" class="headerlink" title="第6章 Map"></a>第6章 Map</h2><h4 id="根据键值查找值"><a href="#根据键值查找值" class="headerlink" title="根据键值查找值"></a>根据键值查找值</h4><ul>
+<li>apply</li>
+<li>get</li>
+<li>getOrElse</li>
+<li>withDefault</li>
+<li>withDefaultValue</li>
+<li>getOrElseUpdate</li>
+</ul>
+<h4 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h4><ul>
+<li>contains</li>
+<li>isDefinedAt</li>
+</ul>
+<h4 id="增加新的键值对"><a href="#增加新的键值对" class="headerlink" title="增加新的键值对"></a>增加新的键值对</h4><ul>
+<li>+<ul>
+<li>增加一个或者多个键值对，返回新的Map对象</li>
+</ul>
+</li>
+<li>++<ul>
+<li>增加一个键值对的集合</li>
+</ul>
+</li>
+<li>++:</li>
+<li>可变Map原地添加<ul>
+<li>+=</li>
+<li>++=</li>
+<li>put</li>
+</ul>
+</li>
+</ul>
+<h4 id="删除键"><a href="#删除键" class="headerlink" title="删除键"></a>删除键</h4><ul>
+<li>-<ul>
+<li>如果传入的参数为null，则不会报错，但是没有意义</li>
+</ul>
+</li>
+<li><code>--</code></li>
+<li>-=</li>
+<li>–=</li>
+<li>remove</li>
+<li>clear</li>
+</ul>
+<h4 id="根据键更新它的值"><a href="#根据键更新它的值" class="headerlink" title="根据键更新它的值"></a>根据键更新它的值</h4><ul>
+<li>updated<ul>
+<li>返回新的Map对象</li>
+</ul>
+</li>
+<li>mutable.Map.update</li>
+<li>mutable.Map.put</li>
+</ul>
+<h4 id="得到键的集合"><a href="#得到键的集合" class="headerlink" title="得到键的集合"></a>得到键的集合</h4><ul>
+<li>keys<ul>
+<li>每次调用都会返回一个新的ImmutableDefault-KeySet对象</li>
+</ul>
+</li>
+<li>keySet<ul>
+<li>每次调用都会返回一个新的ImmutableDefault-KeySet对象</li>
+</ul>
+</li>
+<li>keysIterator</li>
+</ul>
+<h4 id="得到值的集合"><a href="#得到值的集合" class="headerlink" title="得到值的集合"></a>得到值的集合</h4><ul>
+<li>values</li>
+<li>valuesIterator</li>
+</ul>
+<h4 id="转换函数"><a href="#转换函数" class="headerlink" title="转换函数"></a>转换函数</h4><ul>
+<li>filterKeys 对键进行筛选</li>
+<li>mapValues 对值进行映射，返回新的key-mapped(value)键值对集合</li>
+<li>transforms<ul>
+<li>为键生成新的值</li>
+<li>与mapValues不同的是，键和值都会传给函数参数，参与到新的值的计算中</li>
+<li>可变Map的transform方法要求所生成的值的类型要与原始Map的值的类型相同，这是因为它所执行的原地映射，不会生成新的Map</li>
+<li>不可变Map的transform方法所生成的值的类型可以和原始Map的值的类型不同，因为它所返回的是新的Map集合</li>
+</ul>
+</li>
+</ul>
+<h4 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h4><ul>
+<li>andThen</li>
+<li>applyOrElse</li>
+<li>lift</li>
+<li>orElse</li>
+<li>runWith</li>
+</ul>
+<h4 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h4><ul>
+<li>clone<ul>
+<li>可变Map</li>
+<li>生成一个与原Map相同的Map对象</li>
+<li>一旦克隆完成，对原始Map对象的更改将不会影响新生成的Map对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="第7章-数组"><a href="#第7章-数组" class="headerlink" title="第7章 数组"></a>第7章 数组</h2><h4 id="数组的长度"><a href="#数组的长度" class="headerlink" title="数组的长度"></a>数组的长度</h4><ul>
+<li>length 优先使用length方法</li>
+<li>size 调用数组的size方法会产生隐式转换</li>
+</ul>
+<h4 id="更新数组"><a href="#更新数组" class="headerlink" title="更新数组"></a>更新数组</h4><ul>
+<li>t.update(1,200)可以简写为t(1)=200</li>
+</ul>
+<h4 id="连接两个数组"><a href="#连接两个数组" class="headerlink" title="连接两个数组"></a>连接两个数组</h4><ul>
+<li>concat<ul>
+<li>连接两个包含相同类型的数组</li>
+<li>通过ArrayBuilder将两个数组中的元素复制到一个新的数组中</li>
+</ul>
+</li>
+</ul>
+<h4 id="填充数组"><a href="#填充数组" class="headerlink" title="填充数组"></a>填充数组</h4><ul>
+<li>fill<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val t = Array.fill(3,2)(10)</span><br><span class="line">// deep方法可以将多维数组转化成一个嵌套的IndexedSeq对象</span><br><span class="line">println(t.deep.toString())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="增加元素-1"><a href="#增加元素-1" class="headerlink" title="增加元素"></a>增加元素</h4><ul>
+<li>:+  将元素放在新数组的最后</li>
+<li>+:  将元素放在新数组的第一个位置</li>
+</ul>
+<h2 id="第8章-字符串"><a href="#第8章-字符串" class="headerlink" title="第8章 字符串"></a>第8章 字符串</h2><h4 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h4><ul>
+<li>==  值</li>
+<li>eq  对象</li>
+</ul>
+<h4 id="按照换行符分割字符串"><a href="#按照换行符分割字符串" class="headerlink" title="按照换行符分割字符串"></a>按照换行符分割字符串</h4><ul>
+<li>linesWithSeparators</li>
+</ul>
+<h4 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val regex = &quot;&quot;&quot;(\d\d)-(\d\d)-(\d\d\d\d)&quot;&quot;&quot;.r(&quot;month&quot;, &quot;day&quot;, &quot;year&quot;)</span><br></pre></td></tr></table></figure>
+<h4 id="分割字符串"><a href="#分割字符串" class="headerlink" title="分割字符串"></a>分割字符串</h4><ul>
+<li>split</li>
+<li>strip<ul>
+<li>stripLineEnd 用来去除尾部换行符</li>
+<li>stripPrefix 如果字符串以指定的前缀开头，则返回除去前缀后的字符串</li>
+<li>stripSuffix 如果字符串以指定的后缀结尾，则返回除去后缀后的字符串</li>
+<li>stripMargin 如果多行字符串中的行以空格或者其他控制符作前缀，然后以分隔符“|”与其他字符分隔，则这个方法会删除这些空格和其他控制符，以及这个分隔符“|”。每一行的换行符还会保留，只是删除分隔符“|”前面的前导字符串</li>
+</ul>
+</li>
+</ul>
+<h4 id="String-Interpolation"><a href="#String-Interpolation" class="headerlink" title="String Interpolation"></a>String Interpolation</h4><ul>
+<li>s</li>
+<li>f<ul>
+<li>类型安全，如果格式和变量的类型不匹配，则编译的时候会出错</li>
+<li>没有“%”定义格式，应该按照s进行处理</li>
+</ul>
+</li>
+<li>raw</li>
+</ul>
+<h2 id="第9章-缓冲器"><a href="#第9章-缓冲器" class="headerlink" title="第9章 缓冲器"></a>第9章 缓冲器</h2><h4 id="增加元素-2"><a href="#增加元素-2" class="headerlink" title="增加元素"></a>增加元素</h4><ul>
+<li>返回的是新的Buffer<ul>
+<li>:+ 增加到尾部</li>
+<li>+: 增加到头部</li>
+<li>++ 增加集合到尾部</li>
+<li>++: 增加集合到头部</li>
+</ul>
+</li>
+<li>对原始Buffer的原地操作<ul>
+<li>+=</li>
+<li>+=:</li>
+<li>++=</li>
+<li>++=:</li>
+</ul>
+</li>
+<li>原地操作符等价的方法<ul>
+<li>clear</li>
+<li>尾部<ul>
+<li>append</li>
+<li>appendAll</li>
+</ul>
+</li>
+<li>头部<ul>
+<li>prepend</li>
+<li>prependAll</li>
+</ul>
+</li>
+<li>指定位置<ul>
+<li>insert</li>
+<li>insertAll</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h4><ul>
+<li>如果Buffer中有重复元素，则移除第一个匹配的元素</li>
+</ul>
+<h4 id="Trim、clear和clone"><a href="#Trim、clear和clone" class="headerlink" title="Trim、clear和clone"></a>Trim、clear和clone</h4><ul>
+<li>trimStart</li>
+<li>trimEnd</li>
+<li>clone 返回一个新的Buffer</li>
+</ul>
+<h2 id="第10章-列表"><a href="#第10章-列表" class="headerlink" title="第10章 列表"></a>第10章 列表</h2><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><ul>
+<li>:: 调用的是右边的对象的方法</li>
+<li>::: 操作符左边的列表增加到右边的列表的头部</li>
+<li>后进先出（last-in-first-out，LIFO），类似栈的访问模式</li>
+</ul>
+<h4 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">l match &#123; </span><br><span class="line">  case ::(firstValue,restValues) =&gt; println(firstValue) </span><br><span class="line">  case List() =&gt; println(&quot;empty&quot;) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="MutableList"><a href="#MutableList" class="headerlink" title="MutableList"></a>MutableList</h4><ul>
+<li>在Scala内部用来实现队列Queue</li>
+<li>没有定义移除元素的操作</li>
+</ul>
+<h2 id="第11章-栈和队列"><a href="#第11章-栈和队列" class="headerlink" title="第11章 栈和队列"></a>第11章 栈和队列</h2><h4 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h4><ul>
+<li>先入后出（FILO）的数据结构</li>
+<li>不可变， 用List代替<ul>
+<li>入栈  x :: list</li>
+<li>出栈  list.head和list.tail</li>
+</ul>
+</li>
+<li>mutable.Stack<ul>
+<li>top 返回栈顶的元素，但是不会把这个元素从栈顶移除</li>
+<li>push 将元素压入栈顶</li>
+<li>pushAll 将集合中的所有元素都压入栈</li>
+<li>pop 将栈顶的元素移除，并返回栈顶的元素</li>
+<li>elems 返回当前的底层数据结构List对象</li>
+<li>update<ul>
+<li>stack(n) = A</li>
+</ul>
+</li>
+<li>clear</li>
+</ul>
+</li>
+<li>mutable.ArrayStack<ul>
+<li>top、push、pop<ul>
+<li>没有pushAll方法</li>
+<li>没有压入多个元素的push重载方法</li>
+</ul>
+</li>
+<li>dup 复制栈顶的元素（duplicate的缩写），然后将这个复制的元素再压入栈</li>
+<li>drain 逐个移除栈顶的元素，直到为空，移除的元素会传递给一个函数去处理</li>
+<li>preserving 在表达式执行完毕后恢复这个栈，使这个栈的内容和调用前的一致</li>
+</ul>
+</li>
+</ul>
+<h4 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h4><ul>
+<li>先入先出（FIFO）的数据结构</li>
+<li>immutable.Queue<ul>
+<li>出队和入队都会返回新的队列</li>
+<li>enqueue</li>
+<li>dequeue</li>
+<li>front</li>
+</ul>
+</li>
+<li>mutable.Queue<ul>
+<li>dequeueAll 移除所有满足断言的元素</li>
+<li>dequeueFirst 移除第一个满足断言的元素，返回一个Option对象</li>
+</ul>
+</li>
+<li>PriorityQueue<ul>
+<li>内部以堆（heap）的数据结构实现</li>
+<li>dequeueAll 并不需要断言作参数，它直接按照优先级将所有的元素移除队列</li>
+<li>没有front方法，而是使用head方法实现</li>
+</ul>
+</li>
+</ul>
+<h2 id="第12章-流"><a href="#第12章-流" class="headerlink" title="第12章 流"></a>第12章 流</h2><h4 id="初始化-1"><a href="#初始化-1" class="headerlink" title="初始化"></a>初始化</h4><ul>
+<li>#::</li>
+<li>#::: 连接合并两个流</li>
+<li>head 流的第一个元素</li>
+<li>tail 除去流的第一个元素的其他元素，<strong>在调用时可能会需要即时计算</strong></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala-Collection/" rel="tag"># Scala Collection</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/第12章-Scala并发编程基础/" rel="next" title="第12章 Scala并发编程基础">
+                <i class="fa fa-chevron-left"></i> 第12章 Scala并发编程基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/08/Python运维(基础篇)/" rel="prev" title="Python运维(基础篇)">
+                Python运维(基础篇) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Phil Han</p>
+              <p class="site-description motion-element" itemprop="description">Data Processor</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-Traversable"><span class="nav-number">1.</span> <span class="nav-text">第2章 Traversable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化Traversable对象"><span class="nav-number">1.0.1.</span> <span class="nav-text">初始化Traversable对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合的静态类型和类型擦除"><span class="nav-number">1.0.2.</span> <span class="nav-text">集合的静态类型和类型擦除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#foreach"><span class="nav-number">1.0.3.</span> <span class="nav-text">foreach</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flatten"><span class="nav-number">1.0.4.</span> <span class="nav-text">flatten</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#所包含的元素类型不一致仍可平展"><span class="nav-number">1.0.4.0.1.</span> <span class="nav-text">所包含的元素类型不一致仍可平展</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#普通类型、集合类型不可平展"><span class="nav-number">1.0.4.0.2.</span> <span class="nav-text">普通类型、集合类型不可平展</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#只作浅层平展"><span class="nav-number">1.0.4.0.3.</span> <span class="nav-text">只作浅层平展</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#可将Traversable-Option-A-平展为Traversable-A"><span class="nav-number">1.0.4.0.4.</span> <span class="nav-text">可将Traversable[Option[A]]平展为Traversable[A]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#transpose"><span class="nav-number">1.0.5.</span> <span class="nav-text">transpose</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unzip、unzip3"><span class="nav-number">1.0.6.</span> <span class="nav-text">unzip、unzip3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#"><span class="nav-number">1.0.7.</span> <span class="nav-text">++</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mutable-Traversable-concat"><span class="nav-number">1.0.8.</span> <span class="nav-text">mutable.Traversable.concat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PartialFunction"><span class="nav-number">1.0.9.</span> <span class="nav-text">PartialFunction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map、flatMap"><span class="nav-number">1.0.10.</span> <span class="nav-text">map、flatMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scan-计算阶乘-返回中间结果"><span class="nav-number">1.0.11.</span> <span class="nav-text">scan 计算阶乘   返回中间结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fold-返回值"><span class="nav-number">1.0.12.</span> <span class="nav-text">fold  返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断集合非空-isEmpty-nonEmpty-size-hasDefiniteSize"><span class="nav-number">1.0.13.</span> <span class="nav-text">判断集合非空  isEmpty   nonEmpty   size   hasDefiniteSize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#得到特定元素"><span class="nav-number">1.0.14.</span> <span class="nav-text">得到特定元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾部"><span class="nav-number">1.0.15.</span> <span class="nav-text">尾部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择一段子集"><span class="nav-number">1.0.16.</span> <span class="nav-text">选择一段子集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择前N个元素"><span class="nav-number">1.0.17.</span> <span class="nav-text">选择前N个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#跳过前N个元素"><span class="nav-number">1.0.18.</span> <span class="nav-text">跳过前N个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件筛选"><span class="nav-number">1.0.19.</span> <span class="nav-text">条件筛选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分组"><span class="nav-number">1.0.20.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查元素-forall、exist"><span class="nav-number">1.0.21.</span> <span class="nav-text">检查元素  forall、exist</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计满足断言的元素个数"><span class="nav-number">1.0.22.</span> <span class="nav-text">统计满足断言的元素个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规约-reduce-不需要初始值"><span class="nav-number">1.0.23.</span> <span class="nav-text">规约 reduce  不需要初始值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合-sum、product、min、max、aggregate、maxBy、minBy"><span class="nav-number">1.0.24.</span> <span class="nav-text">聚合 sum、product、min、max、aggregate、maxBy、minBy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于Traversable对象生成字符串"><span class="nav-number">1.0.25.</span> <span class="nav-text">基于Traversable对象生成字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型转换"><span class="nav-number">1.0.26.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复制元素到一个数组-copyToArray-copyToBuffer"><span class="nav-number">1.0.27.</span> <span class="nav-text">复制元素到一个数组  copyToArray  copyToBuffer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回一个Traversable对象的视图"><span class="nav-number">1.0.28.</span> <span class="nav-text">返回一个Traversable对象的视图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#得到Traversable对象的底层实现-repr"><span class="nav-number">1.0.29.</span> <span class="nav-text">得到Traversable对象的底层实现 repr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用一个相同的元素填充"><span class="nav-number">1.0.30.</span> <span class="nav-text">使用一个相同的元素填充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#range-start-end-step"><span class="nav-number">1.0.31.</span> <span class="nav-text">range(start, end, step)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tabulate"><span class="nav-number">1.0.32.</span> <span class="nav-text">tabulate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成空Traversable对象"><span class="nav-number">1.0.33.</span> <span class="nav-text">生成空Traversable对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#串行seq-并行par"><span class="nav-number">1.0.34.</span> <span class="nav-text">串行seq    并行par</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3章-Iterable"><span class="nav-number">2.</span> <span class="nav-text">第3章 Iterable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterable-对象分组"><span class="nav-number">2.0.1.</span> <span class="nav-text">Iterable 对象分组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#滑动窗口（大小固定）分组"><span class="nav-number">2.0.2.</span> <span class="nav-text">滑动窗口（大小固定）分组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zip-生成Tuple2-以较短的集合为准-无次序的集合每次运行可能生成不一样的结果"><span class="nav-number">2.0.3.</span> <span class="nav-text">zip   生成Tuple2   以较短的集合为准   无次序的集合每次运行可能生成不一样的结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zipAll-以较长的集合为准"><span class="nav-number">2.0.4.</span> <span class="nav-text">zipAll 以较长的集合为准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zipWithIndex"><span class="nav-number">2.0.5.</span> <span class="nav-text">zipWithIndex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查两个Iterables包含相同元素-sameElements"><span class="nav-number">2.0.6.</span> <span class="nav-text">检查两个Iterables包含相同元素  sameElements</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#takeRight-两个指针遍历"><span class="nav-number">2.0.7.</span> <span class="nav-text">takeRight  两个指针遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dropRight"><span class="nav-number">2.0.8.</span> <span class="nav-text">dropRight</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第4章-Seq"><span class="nav-number">3.</span> <span class="nav-text">第4章 Seq</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#indices"><span class="nav-number">3.0.1.</span> <span class="nav-text">indices</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#size、length、lengthCompare"><span class="nav-number">3.0.2.</span> <span class="nav-text">size、length、lengthCompare</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Seq-index-or-Seq-apply-index"><span class="nav-number">3.0.3.</span> <span class="nav-text">Seq(index)  or  Seq.apply(index)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOf-lastIndexOf"><span class="nav-number">3.0.4.</span> <span class="nav-text">indexOf   lastIndexOf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexWhere-lastIndexWhere"><span class="nav-number">3.0.5.</span> <span class="nav-text">indexWhere  lastIndexWhere</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indexOfSlice-lastIndexOfSlice-搜索集合，返回索引值"><span class="nav-number">3.0.6.</span> <span class="nav-text">indexOfSlice  lastIndexOfSlice  搜索集合，返回索引值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#segmentLength-prefixLength-返回长度值"><span class="nav-number">3.0.7.</span> <span class="nav-text">segmentLength  prefixLength   返回长度值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加元素"><span class="nav-number">3.0.8.</span> <span class="nav-text">增加元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换元素-patch-from-要替换的位置-that-要替换后的元素-replaced-要替换的元素数量"><span class="nav-number">3.0.9.</span> <span class="nav-text">替换元素 patch(from 要替换的位置, that 要替换后的元素, replaced 要替换的元素数量)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新元素-update"><span class="nav-number">3.0.10.</span> <span class="nav-text">更新元素  update</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序"><span class="nav-number">3.0.11.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反转"><span class="nav-number">3.0.12.</span> <span class="nav-text">反转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列是否包含某个前缀或后缀"><span class="nav-number">3.0.13.</span> <span class="nav-text">序列是否包含某个前缀或后缀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列是否包含某子序列"><span class="nav-number">3.0.14.</span> <span class="nav-text">序列是否包含某子序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查两个序列对应的元素是否满足断言"><span class="nav-number">3.0.15.</span> <span class="nav-text">检查两个序列对应的元素是否满足断言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合操作"><span class="nav-number">3.0.16.</span> <span class="nav-text">集合操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#去掉重复的元素"><span class="nav-number">3.0.17.</span> <span class="nav-text">去掉重复的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#得到元素的各种排列"><span class="nav-number">3.0.18.</span> <span class="nav-text">得到元素的各种排列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#得到序列的指定长度的元素的组合"><span class="nav-number">3.0.19.</span> <span class="nav-text">得到序列的指定长度的元素的组合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将序列进行转换"><span class="nav-number">3.0.20.</span> <span class="nav-text">将序列进行转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#偏函数的应用"><span class="nav-number">3.0.21.</span> <span class="nav-text">偏函数的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IndexedSeq和LinearSeq"><span class="nav-number">3.0.22.</span> <span class="nav-text">IndexedSeq和LinearSeq</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Range和NumericRange"><span class="nav-number">3.0.23.</span> <span class="nav-text">Range和NumericRange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vector"><span class="nav-number">3.0.24.</span> <span class="nav-text">Vector</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第5章-Set"><span class="nav-number">4.</span> <span class="nav-text">第5章 Set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检查Set集合是否包含元素"><span class="nav-number">4.0.1.</span> <span class="nav-text">检查Set集合是否包含元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加一个元素或者一组元素到Set集合中"><span class="nav-number">4.0.2.</span> <span class="nav-text">增加一个元素或者一组元素到Set集合中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从Set集合中去掉一个元素或一组元素"><span class="nav-number">4.0.3.</span> <span class="nav-text">从Set集合中去掉一个元素或一组元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二元Set集合运算"><span class="nav-number">4.0.4.</span> <span class="nav-text">二元Set集合运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新一个可变Set集合的元素"><span class="nav-number">4.0.5.</span> <span class="nav-text">更新一个可变Set集合的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#克隆可变Set集合"><span class="nav-number">4.0.6.</span> <span class="nav-text">克隆可变Set集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SortedSet"><span class="nav-number">4.0.7.</span> <span class="nav-text">SortedSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet"><span class="nav-number">4.0.8.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ListSet"><span class="nav-number">4.0.9.</span> <span class="nav-text">ListSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedHashSet"><span class="nav-number">4.0.10.</span> <span class="nav-text">LinkedHashSet</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第6章-Map"><span class="nav-number">5.</span> <span class="nav-text">第6章 Map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根据键值查找值"><span class="nav-number">5.0.1.</span> <span class="nav-text">根据键值查找值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#包含"><span class="nav-number">5.0.2.</span> <span class="nav-text">包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加新的键值对"><span class="nav-number">5.0.3.</span> <span class="nav-text">增加新的键值对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除键"><span class="nav-number">5.0.4.</span> <span class="nav-text">删除键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据键更新它的值"><span class="nav-number">5.0.5.</span> <span class="nav-text">根据键更新它的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#得到键的集合"><span class="nav-number">5.0.6.</span> <span class="nav-text">得到键的集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#得到值的集合"><span class="nav-number">5.0.7.</span> <span class="nav-text">得到值的集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转换函数"><span class="nav-number">5.0.8.</span> <span class="nav-text">转换函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#偏函数"><span class="nav-number">5.0.9.</span> <span class="nav-text">偏函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#克隆"><span class="nav-number">5.0.10.</span> <span class="nav-text">克隆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第7章-数组"><span class="nav-number">6.</span> <span class="nav-text">第7章 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的长度"><span class="nav-number">6.0.1.</span> <span class="nav-text">数组的长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新数组"><span class="nav-number">6.0.2.</span> <span class="nav-text">更新数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接两个数组"><span class="nav-number">6.0.3.</span> <span class="nav-text">连接两个数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#填充数组"><span class="nav-number">6.0.4.</span> <span class="nav-text">填充数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加元素-1"><span class="nav-number">6.0.5.</span> <span class="nav-text">增加元素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第8章-字符串"><span class="nav-number">7.</span> <span class="nav-text">第8章 字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串比较"><span class="nav-number">7.0.1.</span> <span class="nav-text">字符串比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按照换行符分割字符串"><span class="nav-number">7.0.2.</span> <span class="nav-text">按照换行符分割字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则表达式"><span class="nav-number">7.0.3.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割字符串"><span class="nav-number">7.0.4.</span> <span class="nav-text">分割字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-Interpolation"><span class="nav-number">7.0.5.</span> <span class="nav-text">String Interpolation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第9章-缓冲器"><span class="nav-number">8.</span> <span class="nav-text">第9章 缓冲器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增加元素-2"><span class="nav-number">8.0.1.</span> <span class="nav-text">增加元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除元素"><span class="nav-number">8.0.2.</span> <span class="nav-text">移除元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Trim、clear和clone"><span class="nav-number">8.0.3.</span> <span class="nav-text">Trim、clear和clone</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第10章-列表"><span class="nav-number">9.</span> <span class="nav-text">第10章 列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">9.0.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模式匹配"><span class="nav-number">9.0.2.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MutableList"><span class="nav-number">9.0.3.</span> <span class="nav-text">MutableList</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第11章-栈和队列"><span class="nav-number">10.</span> <span class="nav-text">第11章 栈和队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Stack"><span class="nav-number">10.0.1.</span> <span class="nav-text">Stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Queue"><span class="nav-number">10.0.2.</span> <span class="nav-text">Queue</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第12章-流"><span class="nav-number">11.</span> <span class="nav-text">第12章 流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化-1"><span class="nav-number">11.0.1.</span> <span class="nav-text">初始化</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Phil Han</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
