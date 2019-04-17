@@ -1,5 +1,5 @@
 ---
-title: Python运维(基础篇)
+title: Python运维(高级篇)(Partial)
 date: 2019-04-17 21:57:04
 tags: Python运维
 ---
