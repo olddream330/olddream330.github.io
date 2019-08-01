@@ -1,11 +1,8 @@
 ---
-title: Hello World
+title: Flask Web开发实战--李辉（基础部分）
 date: 2019-08-01 19:47:50
-tags: Start
+tags: Flask
 ---
-
-# Flask Web开发实战--李辉（基础部分）
-
 
 
 ### 初始
