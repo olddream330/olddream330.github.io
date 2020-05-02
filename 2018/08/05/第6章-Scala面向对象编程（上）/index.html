@@ -83,14 +83,12 @@
 <meta name="keywords" content="Scala开发快速入门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第6章 Scala面向对象编程（上）">
-<meta property="og:url" content="https://olddream330.github.io/2018/08/05/第6章-Scala面向对象编程（上）/index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;olddream330.github.io&#x2F;2018&#x2F;08&#x2F;05&#x2F;%E7%AC%AC6%E7%AB%A0-Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%8A%EF%BC%89&#x2F;index.html">
 <meta property="og:site_name" content="Phil Han&#39;s Notebook">
 <meta property="og:description" content="6.1 类与对象 类的成员变量在声明时必须初始化（var：null或 _ ），抽象类除外 统一访问原则：调用者并不知道是直接对成员变量进行访问，还是通过setter方法进行访问的方式 main函数必须定义在单例对象中 伴生类与伴生对象开放了对彼此成员的访问权限，还可以实现无new创建对象及析构对象(外部不允许访问私有成员)  1234567import scala.beans.BeanProper">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-30T15:16:17.272Z">
+<meta property="og:updated_time" content="2019-03-30T15:16:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第6章 Scala面向对象编程（上）">
-<meta name="twitter:description" content="6.1 类与对象 类的成员变量在声明时必须初始化（var：null或 _ ），抽象类除外 统一访问原则：调用者并不知道是直接对成员变量进行访问，还是通过setter方法进行访问的方式 main函数必须定义在单例对象中 伴生类与伴生对象开放了对彼此成员的访问权限，还可以实现无new创建对象及析构对象(外部不允许访问私有成员)  1234567import scala.beans.BeanProper">
 
 
 
@@ -182,7 +180,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -192,7 +190,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -202,7 +200,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -212,7 +210,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -253,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/08/05/第6章-Scala面向对象编程（上）/">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/08/05/%E7%AC%AC6%E7%AB%A0-Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%8A%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Phil Han">
@@ -327,19 +325,66 @@
 <li>伴生类与伴生对象开放了对彼此成员的访问权限，还可以实现无new创建对象及析构对象(外部不允许访问私有成员)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import scala.beans.BeanProperty</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line">    // private</span><br><span class="line">    @BeanProperty</span><br><span class="line">    var name: String = _</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Person2 &#123;</span><br><span class="line">    // private final</span><br><span class="line">    val name: String = null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val p = new Person</span><br><span class="line">p.name_= (&quot;john&quot;)</span><br><span class="line">p.name = &quot;John&quot;</span><br><span class="line">p.setName(&quot;Johnson&quot;)</span><br><span class="line">p.getName</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">object Example6_01 &#123;</span><br><span class="line">    object Student &#123;</span><br><span class="line">        private var studentNo: Int = 0</span><br><span class="line">        def uniqueStudentNo() = &#123;</span><br><span class="line">            studentNo += 1</span><br><span class="line">            studentNo</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    def main(args: Array[String]) &#123;</span><br><span class="line">        println(Student.uniqueStudentNo())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">object Example6_01_2 extends App &#123;</span><br><span class="line">    object Student &#123;</span><br><span class="line">        private var studentNo: Int = 0</span><br><span class="line">        def uniqueStudentNo() = &#123;</span><br><span class="line">            studentNo += 1</span><br><span class="line">            studentNo</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    println(Student.uniqueStudentNo())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">object Example6_02 extends App &#123;</span><br><span class="line">    // Companion class</span><br><span class="line">    class Student &#123;</span><br><span class="line">        private var name: String = null</span><br><span class="line">        def getStudentNo = &#123;</span><br><span class="line">            Student.uniqueStudentNo()</span><br><span class="line">            Student.studentNo</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // Copmpanion object</span><br><span class="line">    object Student &#123;</span><br><span class="line">        // def apply() = new Student()</span><br><span class="line">        private var studentNo: Int = 0</span><br><span class="line">        def uniqueStudentNo() = &#123;</span><br><span class="line">            studentNo += 1</span><br><span class="line">            studentNo</span><br><span class="line">        &#125;</span><br><span class="line">        def printStudentName = println(new Student().name)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    println(new Student().getStudentNo)</span><br><span class="line">    println(Student.printStudentName)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
 <h2 id="6-2-主构造函数"><a href="#6-2-主构造函数" class="headerlink" title="6.2 主构造函数"></a>6.2 主构造函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// class Person3 private(val name: String, ...</span><br><span class="line">class Person3(val name: String, val age: Int = 32) &#123;</span><br><span class="line">    println(&quot;Constructing Person ...&quot;)</span><br><span class="line">    override def toString() = name + &quot;:&quot; + age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val p = new Person3(&quot;phil&quot;)</span><br></pre></td></tr></table></figure>
+
+
+
+
 <h2 id="6-3-辅助构造函数"><a href="#6-3-辅助构造函数" class="headerlink" title="6.3 辅助构造函数"></a>6.3 辅助构造函数</h2><ul>
 <li>this</li>
 <li>必须先调用主构造函数this()</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">object Example6_03 extends App &#123;</span><br><span class="line">    class Person &#123;</span><br><span class="line">        private var name: String = null</span><br><span class="line">        private var age: Int = 32</span><br><span class="line">        private var sex: Int = 0</span><br><span class="line">        </span><br><span class="line">        def this(name: String) &#123;</span><br><span class="line">            this()</span><br><span class="line">            this.name = name</span><br><span class="line">        &#125;</span><br><span class="line">        def this(name: String, age: Int) &#123;</span><br><span class="line">            this(name)</span><br><span class="line">            this.age = age</span><br><span class="line">        &#125;</span><br><span class="line">        def this(name: String, age:Int, sex: Int) &#123;</span><br><span class="line">            this(name, age)</span><br><span class="line">            this.sex = sex</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        override def toString = &#123;</span><br><span class="line">            val sexStr = if(sex == 1) &quot;female&quot; else &quot;male&quot;</span><br><span class="line">            s&quot;name=$name, age=$age, sex=$sexStr&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    println(new Person(&quot;John&quot;, 19, 1))</span><br><span class="line">    println(new Person(&quot;John&quot;, 19))</span><br><span class="line">    println(new Person(&quot;John&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">object Example6_03_2 extends App &#123;</span><br><span class="line">    class Person private &#123;</span><br><span class="line">        private var name: String = null</span><br><span class="line">        private var age: Int = 32</span><br><span class="line">        private var sex: Int = 0</span><br><span class="line">        </span><br><span class="line">        def this(name: String=&quot;&quot;, age:Int=16, sex: Int=1) &#123;</span><br><span class="line">            this()</span><br><span class="line">            this.name = name</span><br><span class="line">            this.age = age</span><br><span class="line">            this.sex = sex</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        override def toString = &#123;</span><br><span class="line">            val sexStr = if(sex == 1) &quot;female&quot; else &quot;male&quot;</span><br><span class="line">            s&quot;name=$name, age=$age, sex=$sexStr&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    println(new Person(&quot;John&quot;, 19, 1))</span><br><span class="line">    println(new Person(&quot;John&quot;, 19))</span><br><span class="line">    println(new Person(&quot;John&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
 <h2 id="6-4-继承与多态"><a href="#6-4-继承与多态" class="headerlink" title="6.4 继承与多态"></a>6.4 继承与多态</h2><ul>
 <li>子类可以拥有父类的属性和方法，可以在子类中添加新的类成员，可以重写父类的方法</li>
 <li>多态：<ul>
@@ -352,9 +397,21 @@
 <li>构造函数执行顺序：如果两个类之间存在继承关系，创建子类对象时会先调用父类的构造函数，然后再调用子类的构造函数来完成对象的创建</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">object Example6_04 extends App &#123;</span><br><span class="line">    class Person(var name:String, var age:Int) &#123;</span><br><span class="line">        override def toString: String = &quot;name=&quot; + name + &quot;, age=&quot; + age</span><br><span class="line">    &#125;</span><br><span class="line">    class Student(name:String, age:Int, var studentNo:String) extends Person(name, age) &#123;</span><br><span class="line">        override def toString: String = super.toString + &quot;, studentNo=&quot; + studentNo</span><br><span class="line">    &#125;</span><br><span class="line">    println(new Person(&quot;John&quot;,18))</span><br><span class="line">    println(new Student(&quot;Nancy&quot;, 19, &quot;140116&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 构造函数执行顺序</span><br><span class="line">  */</span><br><span class="line">object Exmaple6_05 extends App &#123;</span><br><span class="line">    class Person(var name:String, var age:Int) &#123;</span><br><span class="line">        println(&quot;Person&apos;s&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    class Student(name:String, age:Int, var studentNo:String) extends Person(name, age) &#123;</span><br><span class="line">        println(&quot;Student&apos;s&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    new Student(&quot;Nancy&quot;, 19, &quot;140116&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 方法重写</span><br><span class="line">  */</span><br><span class="line">object Exmaple6_06 extends App &#123;</span><br><span class="line">    class Person(var name:String, var age:Int) &#123;</span><br><span class="line">        override def toString = s&quot;Person($name,$age)&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    class Student(name:String, age:Int,var studentNo:String) extends Person(name,age)&#123;</span><br><span class="line">        override def toString = s&quot;Student($name,$age,$studentNo)&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    println(new Student(&quot;Nancy&quot;, 19, &quot;140116&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 动态绑定与多态</span><br><span class="line">  */</span><br><span class="line">object Exmaple6_07 extends App &#123;</span><br><span class="line">    class Person(var name:String, var age:Int) &#123;</span><br><span class="line">        def walk():Unit = println(&quot;Walk() method in Person&quot;)</span><br><span class="line">        def talkTo(p:Person):Unit = println(&quot;talkTo() method in Person&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    class Student(name:String, age:Int) extends Person(name, age) &#123;</span><br><span class="line">        private var studentNo:Int = 0</span><br><span class="line">        override def walk() = println(&quot;Walk like an elegant swan&quot;)</span><br><span class="line">        override def talkTo(p: Person) = &#123;</span><br><span class="line">            println(&quot;talkTo() method in Student&quot;)</span><br><span class="line">            println(this.name + &quot; is talking to &quot; + p.name)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    class Teacher(name:String, age:Int) extends Person(name,age) &#123;</span><br><span class="line">        private var teacherNo:Int = 0</span><br><span class="line">        override def walk() = println(&quot;Walk like an elegant swan&quot;)</span><br><span class="line">        override def talkTo(p: Person) = &#123;</span><br><span class="line">            println(&quot;talkTo() method in Teacher&quot;)</span><br><span class="line">            println(this.name + &quot; is talking to &quot; + p.name)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val p1:Person = new Teacher(&quot;Albert&quot;, 38)</span><br><span class="line">    val p2:Person = new Student(&quot;Jack&quot;, 18)</span><br><span class="line"></span><br><span class="line">    p1.walk()</span><br><span class="line">    p1.talkTo(p2)</span><br><span class="line"></span><br><span class="line">    println(&quot;-----------------&quot;)</span><br><span class="line"></span><br><span class="line">    p2.walk()</span><br><span class="line">    p2.talkTo(p1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="6-5-成员访问控制"><a href="#6-5-成员访问控制" class="headerlink" title="6.5 成员访问控制"></a>6.5 成员访问控制</h2><ul>
 <li>Scala没有public关键字</li>
 <li>protected 类、子类可以访问</li>
@@ -374,6 +431,7 @@
 <li>子类继承抽象类时，需要在子类中对父类的抽象成员变量进行override(可省略)<strong>初始化</strong>，否则子类也必须声明为抽象类</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 抽象类的使用</span><br><span class="line">  */</span><br><span class="line">object Example6_08 extends App &#123;</span><br><span class="line">    abstract class Person &#123;</span><br><span class="line">        var age: Int = 0</span><br><span class="line">        var name: String</span><br><span class="line">        def walk()</span><br><span class="line">        override def toString = name</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Student extends Person &#123;</span><br><span class="line">        override var name: String = _</span><br><span class="line">        override def walk(): Unit = println(&quot;Walk like a Student&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val p = new Student</span><br><span class="line">    p.walk()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="6-7-内部类与内部对象"><a href="#6-7-内部类与内部对象" class="headerlink" title="6.7 内部类与内部对象"></a>6.7 内部类与内部对象</h2><h2 id="6-8-匿名类"><a href="#6-8-匿名类" class="headerlink" title="6.8 匿名类"></a>6.8 匿名类</h2><ul>
 <li>只使用一次</li>
 </ul>
@@ -394,7 +452,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Scala开发快速入门/" rel="tag"># Scala开发快速入门</a>
+            <a href="/tags/Scala%E5%BC%80%E5%8F%91%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" rel="tag"># Scala开发快速入门</a>
           
         </div>
       
@@ -407,7 +465,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/05/第5章-函数/" rel="next" title="第5章 函数">
+              <a href="/2018/08/05/%E7%AC%AC5%E7%AB%A0-%E5%87%BD%E6%95%B0/" rel="next" title="第5章 函数">
                 <i class="fa fa-chevron-left"></i> 第5章 函数
               </a>
             
@@ -417,7 +475,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/05/第7章-Scala面向对象编程（下）/" rel="prev" title="第7章 Scala面向对象编程（下）">
+              <a href="/2018/08/05/%E7%AC%AC7%E7%AB%A0-Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%8B%EF%BC%89/" rel="prev" title="第7章 Scala面向对象编程（下）">
                 第7章 Scala面向对象编程（下） <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -494,7 +552,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives/%20%7C%7C%20archive">
               
                   <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
@@ -509,7 +567,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -562,7 +620,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="第二部分 高级篇pexpect expect的python封装， ssh、ftp、passwd、telnet自动交互 spawn 12345child1 = pexpect.spawn(&amp;apos;ls&amp;apos;, [&amp;apos;-latr&amp;apos;, &amp;apos;/tmp&amp;apos;])shell_cmd = &amp;apos;ls -l | grep LOG &amp;gt; logs.txt&amp;apos">
+<meta name="description" content="第二部分 高级篇pexpect expect的python封装， ssh、ftp、passwd、telnet自动交互 spawn12345child1 = pexpect.spawn(&amp;apos;ls&amp;apos;, [&amp;apos;-latr&amp;apos;, &amp;apos;&#x2F;tmp&amp;apos;])shell_cmd = &amp;apos;ls -l | grep LOG &amp;gt; logs.txt&amp;apos;">
 <meta name="keywords" content="Python运维">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python运维(高级篇)(Partial)">
-<meta property="og:url" content="https://olddream330.github.io/2019/04/17/Python运维(高级篇)(Partial)/index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;olddream330.github.io&#x2F;2019&#x2F;04&#x2F;17&#x2F;Python%E8%BF%90%E7%BB%B4(%E9%AB%98%E7%BA%A7%E7%AF%87)(Partial)&#x2F;index.html">
 <meta property="og:site_name" content="Phil Han&#39;s Notebook">
-<meta property="og:description" content="第二部分 高级篇pexpect expect的python封装， ssh、ftp、passwd、telnet自动交互 spawn 12345child1 = pexpect.spawn(&amp;apos;ls&amp;apos;, [&amp;apos;-latr&amp;apos;, &amp;apos;/tmp&amp;apos;])shell_cmd = &amp;apos;ls -l | grep LOG &amp;gt; logs.txt&amp;apos">
+<meta property="og:description" content="第二部分 高级篇pexpect expect的python封装， ssh、ftp、passwd、telnet自动交互 spawn12345child1 = pexpect.spawn(&amp;apos;ls&amp;apos;, [&amp;apos;-latr&amp;apos;, &amp;apos;&#x2F;tmp&amp;apos;])shell_cmd = &amp;apos;ls -l | grep LOG &amp;gt; logs.txt&amp;apos;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-17T14:02:42.810Z">
+<meta property="og:updated_time" content="2019-04-17T14:02:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python运维(高级篇)(Partial)">
-<meta name="twitter:description" content="第二部分 高级篇pexpect expect的python封装， ssh、ftp、passwd、telnet自动交互 spawn 12345child1 = pexpect.spawn(&amp;apos;ls&amp;apos;, [&amp;apos;-latr&amp;apos;, &amp;apos;/tmp&amp;apos;])shell_cmd = &amp;apos;ls -l | grep LOG &amp;gt; logs.txt&amp;apos">
 
 
 
@@ -182,7 +180,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -192,7 +190,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -202,7 +200,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -212,7 +210,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -253,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2019/04/17/Python运维(高级篇)(Partial)/">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2019/04/17/Python%E8%BF%90%E7%BB%B4(%E9%AB%98%E7%BA%A7%E7%AF%87)(Partial)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Phil Han">
@@ -322,14 +320,10 @@
       
         <h2 id="第二部分-高级篇"><a href="#第二部分-高级篇" class="headerlink" title="第二部分 高级篇"></a>第二部分 高级篇</h2><h3 id="pexpect"><a href="#pexpect" class="headerlink" title="pexpect"></a>pexpect</h3><ul>
 <li>expect的python封装， ssh、ftp、passwd、telnet自动交互</li>
-<li><p>spawn</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">child1 = pexpect.spawn(&apos;ls&apos;, [&apos;-latr&apos;, &apos;/tmp&apos;])</span><br><span class="line"></span><br><span class="line">shell_cmd = &apos;ls -l | grep LOG &gt; logs.txt&apos;</span><br><span class="line">child2 = pexpect.spawn(&apos;/bin/bash&apos;, [&apos;-c&apos;, shell_cmd])</span><br><span class="line">child2.expect(pexpect.EOF)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>run</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pexpect.run(&apos;ls&apos;, [&apos;-latr&apos;, &apos;/tmp&apos;])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>pxssh</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s = pxssh.pxssh()</span><br><span class="line">s.login(hostname, username, password)</span><br><span class="line">s.sendline(&apos;uptime&apos;)</span><br><span class="line">s.prompt()  # 匹配系统提示符</span><br><span class="line">s.before  # 系统提示符出现之前的命令输出</span><br><span class="line">s.logout()</span><br></pre></td></tr></table></figure>
+<li>spawn<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">child1 = pexpect.spawn(&apos;ls&apos;, [&apos;-latr&apos;, &apos;/tmp&apos;])</span><br><span class="line"></span><br><span class="line">shell_cmd = &apos;ls -l | grep LOG &gt; logs.txt&apos;</span><br><span class="line">child2 = pexpect.spawn(&apos;/bin/bash&apos;, [&apos;-c&apos;, shell_cmd])</span><br><span class="line">child2.expect(pexpect.EOF)</span><br></pre></td></tr></table></figure></li>
+<li>run<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pexpect.run(&apos;ls&apos;, [&apos;-latr&apos;, &apos;/tmp&apos;])</span><br></pre></td></tr></table></figure></li>
+<li>pxssh<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s = pxssh.pxssh()</span><br><span class="line">s.login(hostname, username, password)</span><br><span class="line">s.sendline(&apos;uptime&apos;)</span><br><span class="line">s.prompt()  # 匹配系统提示符</span><br><span class="line">s.before  # 系统提示符出现之前的命令输出</span><br><span class="line">s.logout()</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="paramiko"><a href="#paramiko" class="headerlink" title="paramiko"></a>paramiko</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">paramiko.util.log_to_file()</span><br><span class="line">ssh = paramiko.SSHClient()</span><br><span class="line">ssh.load_system_host_keys()  # 默认~/.ssh/</span><br><span class="line">ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())</span><br><span class="line">ssh.connect(hostname, username, password)</span><br><span class="line"></span><br><span class="line">stdin, stdout, stderr = ssh.exec_command(&apos;free -m&apos;)</span><br><span class="line"></span><br><span class="line">ssh.close()</span><br></pre></td></tr></table></figure>
@@ -346,13 +340,9 @@
 </li>
 </ul>
 </li>
-<li><p>SFTPClient</p>
-<ul>
-<li><p>from_transport()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t = paramiko.Transport((&quot;192.168.1.102&quot;, 22))</span><br><span class="line">t.connect(username, password)</span><br><span class="line">sftp = paramiko.SFTPClient.from_transport(t)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>put()</p>
-<ul>
+<li>SFTPClient<ul>
+<li>from_transport()<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t = paramiko.Transport((&quot;192.168.1.102&quot;, 22))</span><br><span class="line">t.connect(username, password)</span><br><span class="line">sftp = paramiko.SFTPClient.from_transport(t)</span><br></pre></td></tr></table></figure></li>
+<li>put()<ul>
 <li>sftp.put(localpath, remotepath)</li>
 </ul>
 </li>
@@ -369,11 +359,8 @@
 </li>
 </ul>
 <h3 id="Fabric"><a href="#Fabric" class="headerlink" title="Fabric"></a>Fabric</h3><ul>
-<li><p>fab</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fab -p password -H host1,host2 -- &apos;uname -s&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>fabfile</p>
-<ul>
+<li>fab<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fab -p password -H host1,host2 -- &apos;uname -s&apos;</span><br></pre></td></tr></table></figure></li>
+<li>fabfile<ul>
 <li>env  全局设定</li>
 </ul>
 </li>
@@ -401,8 +388,7 @@
 <li>CGIHTTPServer POST</li>
 </ul>
 </li>
-<li><p>Yorserver</p>
-<ul>
+<li>Yorserver<ul>
 <li>HTTP缓存<ul>
 <li>Expires  <code>Expires=&quot;7d&quot;</code></li>
 <li>max-age</li>
@@ -413,15 +399,12 @@
 <li>gzip</li>
 </ul>
 </li>
-<li><p>HTTP SSL</p>
-<ul>
+<li>HTTP SSL<ul>
 <li>privatekey</li>
-<li>certificate<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 生成RSA密钥</span><br><span class="line">openssl genrsa -des3 -out server.key 1024</span><br><span class="line"># 复制</span><br><span class="line">openssl -rsa -in server.key -out app.key</span><br><span class="line"># 生成证书</span><br><span class="line">openssl req -new -key server.key -out server.csr</span><br><span class="line"># 签发证书</span><br><span class="line">openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</span><br></pre></td></tr></table></figure>
-</li>
+<li>certificate<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 生成RSA密钥</span><br><span class="line">openssl genrsa -des3 -out server.key 1024</span><br><span class="line"># 复制</span><br><span class="line">openssl -rsa -in server.key -out app.key</span><br><span class="line"># 生成证书</span><br><span class="line">openssl req -new -key server.key -out server.csr</span><br><span class="line"># 签发证书</span><br><span class="line">openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>目录列表</p>
-</li>
+<li>目录列表</li>
 <li>动态CGI</li>
 </ul>
 </li>
@@ -432,71 +415,43 @@
 <li>块映射描述</li>
 </ul>
 </li>
-<li><p>Installation</p>
-<ul>
-<li><p>apt</p>
-<ul>
-<li>/etc/apt/sources.list<br><code>deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ansible</span><br></pre></td></tr></table></figure>
-</li>
+<li>Installation<ul>
+<li>apt<ul>
+<li>/etc/apt/sources.list<br><code>deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ansible</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>pip</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install -i https://mirrors.aliyun.com/pypi/simple ansible</span><br><span class="line">or</span><br><span class="line">pip install git+https://github.com/ansible/ansible.git@devel</span><br></pre></td></tr></table></figure>
-</li>
+<li>pip<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install -i https://mirrors.aliyun.com/pypi/simple ansible</span><br><span class="line">or</span><br><span class="line">pip install git+https://github.com/ansible/ansible.git@devel</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>配置</p>
-<ul>
-<li><code>/etc/ansible/hosts</code>添加主机IP同时定义到<code>[webservers]</code>组<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible 192.168.1.21 -m ping -k</span><br><span class="line">ansible webservers -m ping -k  # -k 要求提供root密码</span><br><span class="line">or</span><br><span class="line">ansible webservers -m ping -u ansible -sudo</span><br></pre></td></tr></table></figure>
-</li>
+<li>配置<ul>
+<li><code>/etc/ansible/hosts</code>添加主机IP同时定义到<code>[webservers]</code>组<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible 192.168.1.21 -m ping -k</span><br><span class="line">ansible webservers -m ping -k  # -k 要求提供root密码</span><br><span class="line">or</span><br><span class="line">ansible webservers -m ping -u ansible -sudo</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>ssh无密码访问</p>
-<ul>
+<li>ssh无密码访问<ul>
 <li>生成密钥： <code>ssh-keygen -t rsa</code>, id_rsa为私钥， id_rsa.pub为公钥， 需要下发到被控主机<code>.ssh</code>并重命名authorized_keys</li>
 <li>下发公钥： <code>ssh-copy-id -i /root/.ssh/id_rsa.pub root@192.168.1.21</code></li>
 <li>校验： <code>ssh -T root@192.168.1.21</code></li>
 </ul>
 </li>
-<li><p>常用API</p>
-<ul>
-<li><p>远程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m command -a &quot;free -m&quot;</span><br><span class="line">ansible webservers -m script -a &quot;/home/test.sh 12 34&quot;  # 在远程执行主控端脚本</span><br><span class="line">ansible webservers -m shell -a &quot;/home/test.sh&quot;  # 执行远程脚本</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>copy</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m copy -a &quot;src=/home/test.sh dest=/tmp/ owner=root group=root     mode=0755&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>stat</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m stat -a &quot;path=/etc/sysctl.conf&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>get_url</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m get_url -a &quot;url=http://www.baidu.com dest=/tmp/index.html mode=0440 force=yes&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>yum, apt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m apt -a &quot;pkg=curl state=latest&quot;</span><br><span class="line">ansible webservers -m yum -a &quot;name=curl state=latest&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>cron</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m cron -a &quot;name=&apos;check dirs&apos; hour=&apos;5,2&apos; job=&apos;ls -alh &gt; /dev/null&apos;&quot;</span><br><span class="line"># 等同于</span><br><span class="line">* 5,2 * * * ls -alh &gt; /dev/null salt &apos;*&apos; file.chown /etc/passwd root root</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>mount</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m mount -a &quot;name=/mnt/data src=/dev/sd0 fstype=ext3 opts=ro state=present&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>service</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m service -a &quot;name=nginx state=stopped&quot;</span><br><span class="line">ansible webservers -m service -a &quot;name=nginx state=restarted&quot;</span><br><span class="line">ansible webservers -m service -a &quot;name=nginx state=reloaded&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>sysctl</p>
-</li>
-<li>user<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 添加用户johnd</span><br><span class="line">ansible webservers -m user -a &quot;name=johnd comment=&apos;John Doe&apos;&quot;</span><br><span class="line"># 删除用户johnd</span><br><span class="line">ansible webservers -m user -a &quot;name=johnd state=absent remove=yes&quot;</span><br></pre></td></tr></table></figure>
-</li>
+<li>常用API<ul>
+<li>远程<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m command -a &quot;free -m&quot;</span><br><span class="line">ansible webservers -m script -a &quot;/home/test.sh 12 34&quot;  # 在远程执行主控端脚本</span><br><span class="line">ansible webservers -m shell -a &quot;/home/test.sh&quot;  # 执行远程脚本</span><br></pre></td></tr></table></figure></li>
+<li>copy<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m copy -a &quot;src=/home/test.sh dest=/tmp/ owner=root group=root     mode=0755&quot;</span><br></pre></td></tr></table></figure></li>
+<li>stat<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m stat -a &quot;path=/etc/sysctl.conf&quot;</span><br></pre></td></tr></table></figure></li>
+<li>get_url<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m get_url -a &quot;url=http://www.baidu.com dest=/tmp/index.html mode=0440 force=yes&quot;</span><br></pre></td></tr></table></figure></li>
+<li>yum, apt<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m apt -a &quot;pkg=curl state=latest&quot;</span><br><span class="line">ansible webservers -m yum -a &quot;name=curl state=latest&quot;</span><br></pre></td></tr></table></figure></li>
+<li>cron<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m cron -a &quot;name=&apos;check dirs&apos; hour=&apos;5,2&apos; job=&apos;ls -alh &gt; /dev/null&apos;&quot;</span><br><span class="line"># 等同于</span><br><span class="line">* 5,2 * * * ls -alh &gt; /dev/null salt &apos;*&apos; file.chown /etc/passwd root root</span><br></pre></td></tr></table></figure></li>
+<li>mount<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m mount -a &quot;name=/mnt/data src=/dev/sd0 fstype=ext3 opts=ro state=present&quot;</span><br></pre></td></tr></table></figure></li>
+<li>service<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible webservers -m service -a &quot;name=nginx state=stopped&quot;</span><br><span class="line">ansible webservers -m service -a &quot;name=nginx state=restarted&quot;</span><br><span class="line">ansible webservers -m service -a &quot;name=nginx state=reloaded&quot;</span><br></pre></td></tr></table></figure></li>
+<li>sysctl</li>
+<li>user<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 添加用户johnd</span><br><span class="line">ansible webservers -m user -a &quot;name=johnd comment=&apos;John Doe&apos;&quot;</span><br><span class="line"># 删除用户johnd</span><br><span class="line">ansible webservers -m user -a &quot;name=johnd state=absent remove=yes&quot;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>playbook</p>
-</li>
+<li>playbook</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> yaml</span><br><span class="line"></span><br><span class="line">input_list = <span class="string">"""</span></span><br><span class="line"><span class="string">-</span></span><br><span class="line"><span class="string"> - Hes</span></span><br><span class="line"><span class="string"> - Pap</span></span><br><span class="line"><span class="string"> - Apa</span></span><br><span class="line"><span class="string"> - Epi</span></span><br><span class="line"><span class="string">-</span></span><br><span class="line"><span class="string"> - China</span></span><br><span class="line"><span class="string"> - USA</span></span><br><span class="line"><span class="string"> - Germany</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">obj1 = yaml.load(input_list, Loader=yaml.FullLoader)</span><br><span class="line">print(<span class="string">"obj1: "</span>, obj1)</span><br><span class="line"></span><br><span class="line">input_dict = <span class="string">"""</span></span><br><span class="line"><span class="string">hero:</span></span><br><span class="line"><span class="string">  hp: 34</span></span><br><span class="line"><span class="string">  sp: 8</span></span><br><span class="line"><span class="string">  level: 4</span></span><br><span class="line"><span class="string">orc:</span></span><br><span class="line"><span class="string">  hp: 12</span></span><br><span class="line"><span class="string">  sp: 0</span></span><br><span class="line"><span class="string">  level: 2</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">obj2 = yaml.load(input_dict, Loader=yaml.FullLoader)</span><br><span class="line">print(<span class="string">"obj2: "</span>, obj2)</span><br></pre></td></tr></table></figure>
+
 <pre><code>obj1:  [[&apos;Hes&apos;, &apos;Pap&apos;, &apos;Apa&apos;, &apos;Epi&apos;], [&apos;China&apos;, &apos;USA&apos;, &apos;Germany&apos;]]
-obj2:  {&apos;hero&apos;: {&apos;level&apos;: 4, &apos;sp&apos;: 8, &apos;hp&apos;: 34}, &apos;orc&apos;: {&apos;level&apos;: 2, &apos;sp&apos;: 0, &apos;hp&apos;: 12}}
-</code></pre>
+obj2:  {&apos;hero&apos;: {&apos;level&apos;: 4, &apos;sp&apos;: 8, &apos;hp&apos;: 34}, &apos;orc&apos;: {&apos;level&apos;: 2, &apos;sp&apos;: 0, &apos;hp&apos;: 12}}</code></pre>
       
     </div>
     
@@ -513,7 +468,7 @@ obj2:  {&apos;hero&apos;: {&apos;level&apos;: 4, &apos;sp&apos;: 8, &apos;hp&apo
       
         <div class="post-tags">
           
-            <a href="/tags/Python运维/" rel="tag"># Python运维</a>
+            <a href="/tags/Python%E8%BF%90%E7%BB%B4/" rel="tag"># Python运维</a>
           
         </div>
       
@@ -526,7 +481,7 @@ obj2:  {&apos;hero&apos;: {&apos;level&apos;: 4, &apos;sp&apos;: 8, &apos;hp&apo
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/08/Python运维(基础篇)/" rel="next" title="Python运维(基础篇)">
+              <a href="/2019/04/08/Python%E8%BF%90%E7%BB%B4(%E5%9F%BA%E7%A1%80%E7%AF%87)/" rel="next" title="Python运维(基础篇)">
                 <i class="fa fa-chevron-left"></i> Python运维(基础篇)
               </a>
             
@@ -609,7 +564,7 @@ obj2:  {&apos;hero&apos;: {&apos;level&apos;: 4, &apos;sp&apos;: 8, &apos;hp&apo
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives/%20%7C%7C%20archive">
               
                   <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
@@ -624,7 +579,7 @@ obj2:  {&apos;hero&apos;: {&apos;level&apos;: 4, &apos;sp&apos;: 8, &apos;hp&apo
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -677,7 +632,7 @@ obj2:  {&apos;hero&apos;: {&apos;level&apos;: 4, &apos;sp&apos;: 8, &apos;hp&apo
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

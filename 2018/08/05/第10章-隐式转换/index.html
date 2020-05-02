@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="10.1 隐式转换简介10.2 隐式转换函数 隐式转换函数与函数名称无关，只与函数签名（输入参数类型与返回值类型）有关，如果在当前作用域范围存在函数签名相同但函数名称不同的两个隐式转换函数，则在进行隐式转换时会报错。  123import scala.language.implicitConversionsimplicit def float2int(x:Float)=x.toInt 10.3 隐">
+<meta name="description" content="10.1 隐式转换简介10.2 隐式转换函数 隐式转换函数与函数名称无关，只与函数签名（输入参数类型与返回值类型）有关，如果在当前作用域范围存在函数签名相同但函数名称不同的两个隐式转换函数，则在进行隐式转换时会报错。  123import scala.language.implicitConversionsimplicit def float2int(x:Float)=x.toInt     10">
 <meta name="keywords" content="Scala开发快速入门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第10章 隐式转换">
-<meta property="og:url" content="https://olddream330.github.io/2018/08/05/第10章-隐式转换/index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;olddream330.github.io&#x2F;2018&#x2F;08&#x2F;05&#x2F;%E7%AC%AC10%E7%AB%A0-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2&#x2F;index.html">
 <meta property="og:site_name" content="Phil Han&#39;s Notebook">
-<meta property="og:description" content="10.1 隐式转换简介10.2 隐式转换函数 隐式转换函数与函数名称无关，只与函数签名（输入参数类型与返回值类型）有关，如果在当前作用域范围存在函数签名相同但函数名称不同的两个隐式转换函数，则在进行隐式转换时会报错。  123import scala.language.implicitConversionsimplicit def float2int(x:Float)=x.toInt 10.3 隐">
+<meta property="og:description" content="10.1 隐式转换简介10.2 隐式转换函数 隐式转换函数与函数名称无关，只与函数签名（输入参数类型与返回值类型）有关，如果在当前作用域范围存在函数签名相同但函数名称不同的两个隐式转换函数，则在进行隐式转换时会报错。  123import scala.language.implicitConversionsimplicit def float2int(x:Float)=x.toInt     10">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-30T15:16:17.272Z">
+<meta property="og:updated_time" content="2019-03-30T15:16:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第10章 隐式转换">
-<meta name="twitter:description" content="10.1 隐式转换简介10.2 隐式转换函数 隐式转换函数与函数名称无关，只与函数签名（输入参数类型与返回值类型）有关，如果在当前作用域范围存在函数签名相同但函数名称不同的两个隐式转换函数，则在进行隐式转换时会报错。  123import scala.language.implicitConversionsimplicit def float2int(x:Float)=x.toInt 10.3 隐">
 
 
 
@@ -182,7 +180,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -192,7 +190,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -202,7 +200,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -212,7 +210,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -253,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/08/05/第10章-隐式转换/">
+    <link itemprop="mainEntityOfPage" href="https://olddream330.github.io/2018/08/05/%E7%AC%AC10%E7%AB%A0-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Phil Han">
@@ -324,16 +322,34 @@
 <p>隐式转换函数与函数名称无关，只与<strong>函数签名</strong>（输入参数类型与返回值类型）有关，如果在当前作用域范围存在函数签名相同但函数名称不同的两个隐式转换函数，则在进行隐式转换时会报错。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import scala.language.implicitConversions</span><br><span class="line"></span><br><span class="line">implicit def float2int(x:Float)=x.toInt</span><br></pre></td></tr></table></figure>
+
+
+
+
 <h2 id="10-3-隐式类与隐式对象"><a href="#10-3-隐式类与隐式对象" class="headerlink" title="10.3 隐式类与隐式对象"></a>10.3 隐式类与隐式对象</h2><ul>
 <li>隐式类的主构造函数参数有且仅有一个</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">implicit class Dog(val name:String) &#123;</span><br><span class="line">    def bark = println(s&quot;$name is barking&quot;)</span><br><span class="line">&#125;</span><br><span class="line">&quot;Nacy&quot;.bark</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 隐式对象(implicitly方法访问隐式对象)</span><br><span class="line">  */</span><br><span class="line">object Example10_1 extends App &#123;</span><br><span class="line">    trait Multiplicable[T] &#123;</span><br><span class="line">        def multiply(x:T):T</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    implicit object MultiplicableInt extends Multiplicable[Int] &#123;</span><br><span class="line">        def multiply(x:Int) = x*x</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    implicit object MultiplicableString extends Multiplicable[String] &#123;</span><br><span class="line">        def multiply(x:String) = x*2</span><br><span class="line">    &#125;</span><br><span class="line">    /*</span><br><span class="line">    def multiply[T:Multiplicable](x:T) = &#123;</span><br><span class="line">        val ev = implicitly[Multiplicable[T]]</span><br><span class="line">        ev.multiply(x)</span><br><span class="line">    &#125;</span><br><span class="line">    */</span><br><span class="line"></span><br><span class="line">    def multiply[T:Multiplicable](x:T)(implicit ev:Multiplicable[T]) = &#123;</span><br><span class="line">        ev.multiply(x)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(multiply(5))</span><br><span class="line">    println(multiply(&quot;5&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="10-4-隐式参数与隐式值"><a href="#10-4-隐式参数与隐式值" class="headerlink" title="10.4 隐式参数与隐式值"></a>10.4 隐式参数与隐式值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implicit val x:Double = 2.55</span><br><span class="line">def sqrt(implicit x:Double) = Math.sqrt(x)</span><br><span class="line">sqrt</span><br></pre></td></tr></table></figure>
+
+
+
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  * 隐式值（定义普通类）</span><br><span class="line">  */</span><br><span class="line">object Example10_2 extends App &#123;</span><br><span class="line">    trait Multiplicable[T] &#123;</span><br><span class="line">        def multiply(x:T):T</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class MultiplicableInt extends Multiplicable[Int] &#123;</span><br><span class="line">        def multiply(x:Int) = x*x</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class MultiplicableString extends Multiplicable[String] &#123;</span><br><span class="line">        def multiply(x:String) = x*2</span><br><span class="line">    &#125;</span><br><span class="line">    /*</span><br><span class="line">    def multiply[T:Multiplicable](x:T) = &#123;</span><br><span class="line">        val ev = implicitly[Multiplicable[T]]</span><br><span class="line">        ev.multiply(x)</span><br><span class="line">    &#125;</span><br><span class="line">    */</span><br><span class="line"></span><br><span class="line">    def multiply[T:Multiplicable](x:T)(implicit ev:Multiplicable[T]) = &#123;</span><br><span class="line">        ev.multiply(x)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    implicit val mInt = new MultiplicableInt</span><br><span class="line"></span><br><span class="line">    implicit val mStr = new MultiplicableString</span><br><span class="line"></span><br><span class="line">    println(multiply(5))</span><br><span class="line">    println(multiply(&quot;5&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="隐式参数使用常见问题"><a href="#隐式参数使用常见问题" class="headerlink" title="隐式参数使用常见问题"></a>隐式参数使用常见问题</h3><h4 id="当函数没有柯里化时，implicit会作用于所有参数"><a href="#当函数没有柯里化时，implicit会作用于所有参数" class="headerlink" title="当函数没有柯里化时，implicit会作用于所有参数"></a>当函数没有柯里化时，implicit会作用于所有参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def product(implicit x:Double,y:Double)=x*y</span><br><span class="line">implicit val d=2.55</span><br><span class="line">product</span><br></pre></td></tr></table></figure>
+
 <h4 id="隐式参数使用时不能只指定部分"><a href="#隐式参数使用时不能只指定部分" class="headerlink" title="隐式参数使用时不能只指定部分"></a>隐式参数使用时不能只指定部分</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def product(implicit x:Double,y:Double)=x*y</span><br><span class="line">implicit val d=2.55</span><br><span class="line">// 全部不指定</span><br><span class="line">product</span><br><span class="line">// 全部指定</span><br><span class="line">product(2.55,2.55)</span><br></pre></td></tr></table></figure>
+
 <h4 id="同类型的隐式值在当前作用域内只能出现一次"><a href="#同类型的隐式值在当前作用域内只能出现一次" class="headerlink" title="同类型的隐式值在当前作用域内只能出现一次"></a>同类型的隐式值在当前作用域内只能出现一次</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implicit val d=2.55</span><br></pre></td></tr></table></figure>
+
 <h4 id="implicit只能出现在参数开头（不合法：def-product-x-Double-implicit-y-Double-x-y）"><a href="#implicit只能出现在参数开头（不合法：def-product-x-Double-implicit-y-Double-x-y）" class="headerlink" title="implicit只能出现在参数开头（不合法：def product(x:Double,implicit y:Double)=x*y）"></a>implicit只能出现在参数开头（不合法：def product(x:Double,<strong>implicit</strong> y:Double)=x*y）</h4><h4 id="合法（柯里化）def-product-x-Double-implicit-y-Double-x-y"><a href="#合法（柯里化）def-product-x-Double-implicit-y-Double-x-y" class="headerlink" title="合法（柯里化）def product(x:Double)(implicit y:Double)=x*y"></a>合法（柯里化）def product(x:Double)(implicit y:Double)=x*y</h4><h4 id="柯里化函数的implicit只能作用于最后一个参数"><a href="#柯里化函数的implicit只能作用于最后一个参数" class="headerlink" title="柯里化函数的implicit只能作用于最后一个参数"></a>柯里化函数的implicit只能作用于最后一个参数</h4><h4 id="implicit在隐式参数中只能出现一次"><a href="#implicit在隐式参数中只能出现一次" class="headerlink" title="implicit在隐式参数中只能出现一次"></a>implicit在隐式参数中只能出现一次</h4><ul>
 <li>不合法：<ul>
 <li>def product(implicit x:Double,implicit y:Double)=x*y</li>
@@ -342,6 +358,7 @@
 </li>
 </ul>
 <h4 id="匿名函数不能使用隐式参数"><a href="#匿名函数不能使用隐式参数" class="headerlink" title="匿名函数不能使用隐式参数"></a>匿名函数不能使用隐式参数</h4><h4 id="柯里化如有隐式参数，则不能使用其偏应用函数"><a href="#柯里化如有隐式参数，则不能使用其偏应用函数" class="headerlink" title="柯里化如有隐式参数，则不能使用其偏应用函数"></a>柯里化如有隐式参数，则不能使用其偏应用函数</h4><h2 id="10-5-隐式转换规则与问题"><a href="#10-5-隐式转换规则与问题" class="headerlink" title="10.5 隐式转换规则与问题"></a>10.5 隐式转换规则与问题</h2><h3 id="显示定义规则"><a href="#显示定义规则" class="headerlink" title="显示定义规则"></a>显示定义规则</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def product(implicit x:Double,y:Double)=x*y</span><br><span class="line">implicit val d:Double=2.55</span><br></pre></td></tr></table></figure>
+
 <h3 id="作用域规则"><a href="#作用域规则" class="headerlink" title="作用域规则"></a>作用域规则</h3><h3 id="无歧义规则"><a href="#无歧义规则" class="headerlink" title="无歧义规则"></a>无歧义规则</h3><ul>
 <li>不能存在多个隐式转换使代码合法</li>
 </ul>
@@ -365,7 +382,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Scala开发快速入门/" rel="tag"># Scala开发快速入门</a>
+            <a href="/tags/Scala%E5%BC%80%E5%8F%91%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" rel="tag"># Scala开发快速入门</a>
           
         </div>
       
@@ -378,7 +395,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/05/第9章-模式匹配/" rel="next" title="第9章 模式匹配">
+              <a href="/2018/08/05/%E7%AC%AC9%E7%AB%A0-%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" rel="next" title="第9章 模式匹配">
                 <i class="fa fa-chevron-left"></i> 第9章 模式匹配
               </a>
             
@@ -388,7 +405,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/05/第11章-类型参数/" rel="prev" title="第11章 类型参数">
+              <a href="/2018/08/05/%E7%AC%AC11%E7%AB%A0-%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0/" rel="prev" title="第11章 类型参数">
                 第11章 类型参数 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -465,7 +482,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives/%20%7C%7C%20archive">
               
                   <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
@@ -480,7 +497,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -533,7 +550,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
